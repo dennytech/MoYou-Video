@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.dennytech.wiiivideo.app.WVActivity;
+import com.dennytech.wiiivideo.videolist.VideoGridFragment;
 import com.dennytech.wiiivideo.videolist.VideoListFragment;
 import com.dennytech.wiiivideo.widget.PagerSlidingTabStrip;
 import com.umeng.analytics.MobclickAgent;
@@ -45,24 +46,28 @@ public class HomeActivity extends WVActivity {
 		tabs.setViewPager(mViewPager);
 		tabs.setIndicatorColor(0xFFC9C9C9);
 		tabs.setOnPageChangeListener(new OnPageChangeListener() {
-			
+
 			@Override
 			public void onPageSelected(int index) {
-				HashMap<String,String> map = new HashMap<String,String>();
-				map.put("page", mSectionsPagerAdapter.getPageTitle(index).toString());
-				MobclickAgent.onEvent(HomeActivity.this, "home_page_select", map);
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("page", mSectionsPagerAdapter.getPageTitle(index)
+						.toString());
+				MobclickAgent.onEvent(HomeActivity.this, "home_page_select",
+						map);
 			}
-			
+
 			@Override
 			public void onPageScrolled(int index, float arg1, int arg2) {
-				HashMap<String,String> map = new HashMap<String,String>();
-				map.put("page", mSectionsPagerAdapter.getPageTitle(index).toString());
-				MobclickAgent.onEvent(HomeActivity.this, "home_page_scroll", map);
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("page", mSectionsPagerAdapter.getPageTitle(index)
+						.toString());
+				MobclickAgent.onEvent(HomeActivity.this, "home_page_scroll",
+						map);
 			}
-			
+
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
-				
+
 			}
 		});
 
@@ -102,7 +107,12 @@ public class HomeActivity extends WVActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new VideoListFragment();
+			Fragment fragment;
+			if (position == 0) {
+				fragment = new VideoGridFragment();
+			} else {
+				fragment = new VideoListFragment();
+			}
 			int order = position + 1;
 			Bundle args = new Bundle();
 			args.putString(

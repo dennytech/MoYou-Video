@@ -25,7 +25,9 @@ public class WVActivity extends CLActivity {
 
 		if (!(this instanceof HomeActivity)) {
 			ActionBar actionBar = getActionBar();
-			actionBar.setDisplayHomeAsUpEnabled(true);
+			if (actionBar != null) {
+				actionBar.setDisplayHomeAsUpEnabled(true);
+			}
 		}
 	}
 

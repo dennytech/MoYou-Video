@@ -35,8 +35,8 @@ public class VideoListItem extends LinearLayout {
 	public void setData(Video video) {
 		thumbView.setImage(video.thumb);
 		titleView.setText(video.title);
-		pubView.setText("发布时间：" + video.publishTime);
-		playView.setText("播放次数：" + video.playTimes);
+		pubView.setText(video.publishTime + "发布");
+		playView.setText(video.playTimes + "次播放");
 	}
 
 }
