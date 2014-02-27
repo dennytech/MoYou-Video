@@ -15,5 +15,11 @@
 	<string name="UMToast_IsUpdating">Updating....</string>
 	<string name="UMDialog_InstallAPK">The lastest version has been downloaded, install now ?</string>
 	<string name="UMUpdateCheck">2.4.0.20131230</string>
+	
+	<!-- umeng -->
+    <string name="update_checking">正在检查更新...</string>
+    <string name="update_no">当前是最新版本，无须更新!</string>
+    <string name="update_no_wifi">没有wifi连接， 只在wifi下更新</string>
+    <string name="update_timeout">超时</string>
     
 </resources>

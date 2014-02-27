@@ -1,18 +1,24 @@
 package com.dennytech.wiiivideo;
 
+import java.util.HashMap;
 import java.util.Locale;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.dennytech.wiiivideo.app.WVActivity;
 import com.dennytech.wiiivideo.videolist.VideoListFragment;
 import com.dennytech.wiiivideo.widget.PagerSlidingTabStrip;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 public class HomeActivity extends WVActivity {
 
@@ -38,8 +44,30 @@ public class HomeActivity extends WVActivity {
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		tabs.setViewPager(mViewPager);
 		tabs.setIndicatorColor(0xFFC9C9C9);
+		tabs.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int index) {
+				HashMap<String,String> map = new HashMap<String,String>();
+				map.put("page", mSectionsPagerAdapter.getPageTitle(index).toString());
+				MobclickAgent.onEvent(HomeActivity.this, "home_page_select", map);
+			}
+			
+			@Override
+			public void onPageScrolled(int index, float arg1, int arg2) {
+				HashMap<String,String> map = new HashMap<String,String>();
+				map.put("page", mSectionsPagerAdapter.getPageTitle(index).toString());
+				MobclickAgent.onEvent(HomeActivity.this, "home_page_scroll", map);
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				
+			}
+		});
 
 		MobclickAgent.updateOnlineConfig(this);
+		UmengUpdateAgent.update(this);
 	}
 
 	@Override
@@ -47,6 +75,16 @@ public class HomeActivity extends WVActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.home, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getTitle().equals(getString(R.string.action_about))) {
+			startActivity(new Intent(Intent.ACTION_VIEW,
+					Uri.parse("wvideo://about")));
+			MobclickAgent.onEvent(this, "about");
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	/**

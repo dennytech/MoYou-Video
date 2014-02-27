@@ -1,6 +1,7 @@
 package com.dennytech.wiiivideo.videolist;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -30,6 +31,7 @@ import com.dennytech.wiiivideo.R;
 import com.dennytech.wiiivideo.app.WVFragment;
 import com.dennytech.wiiivideo.data.Video;
 import com.dennytech.wiiivideo.videolist.view.VideoListItem;
+import com.umeng.analytics.MobclickAgent;
 
 public class VideoListFragment extends WVFragment implements
 		OnItemClickListener, MApiRequestHandler {
@@ -88,6 +90,11 @@ public class VideoListFragment extends WVFragment implements
 			Intent intent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("wvideo://player?url=" + url));
 			startActivity(intent);
+			
+			HashMap<String,String> map = new HashMap<String,String>();
+			map.put("__ct__", String.valueOf(position));
+			map.put("title", String.valueOf(((Video) item).title));
+			MobclickAgent.onEvent(getActivity(), "video_list_item_click", map);
 		}
 
 	}
