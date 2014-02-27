@@ -3,6 +3,8 @@
     xmlns:wv="http://schemas.android.com/apk/res/com.dennytech.wiiivideo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:background="@drawable/list_item_bg"
     android:orientation="horizontal"
     android:padding="10dp" >
 
@@ -11,14 +13,16 @@
         android:layout_width="128dp"
         android:layout_height="80dp"
         android:scaleType="centerCrop"
+        android:layout_marginLeft="5dp"
         wv:placeholderEmpty="@drawable/ic_pic_loading"
-        wv:placeholderLoading="@drawable/ic_pic_loading"
-        wv:placeholderError="@drawable/ic_pic_loading" />
+        wv:placeholderError="@drawable/ic_pic_loading"
+        wv:placeholderLoading="@drawable/ic_pic_loading" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
         android:orientation="vertical" >
 
         <TextView
