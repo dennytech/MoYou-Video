@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dennytech.wiiivideo.app.WVActivity;
+import com.dennytech.wiiivideo.videolist.VideoListFragment;
 import com.umeng.analytics.MobclickAgent;
 
 public class HomeActivity extends WVActivity {
@@ -46,9 +47,8 @@ public class HomeActivity extends WVActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		
+
 		MobclickAgent.updateOnlineConfig(this);
-		showProgressDialog(getString(R.string.msg_loading));
 	}
 
 	@Override
@@ -73,9 +73,9 @@ public class HomeActivity extends WVActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new DummySectionFragment();
+			Fragment fragment = new VideoListFragment();
 			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+			args.putInt("order", position + 1);
 			fragment.setArguments(args);
 			return fragment;
 		}
@@ -83,7 +83,7 @@ public class HomeActivity extends WVActivity {
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 3;
+			return 5;
 		}
 
 		@Override
@@ -91,11 +91,15 @@ public class HomeActivity extends WVActivity {
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.title_section1).toUpperCase(l);
+				return getString(R.string.sort_default).toUpperCase(l);
 			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
+				return getString(R.string.sort_new).toUpperCase(l);
 			case 2:
-				return getString(R.string.title_section3).toUpperCase(l);
+				return getString(R.string.sort_paly_times).toUpperCase(l);
+			case 3:
+				return getString(R.string.sort_comments).toUpperCase(l);
+			case 4:
+				return getString(R.string.sort_collects).toUpperCase(l);
 			}
 			return null;
 		}

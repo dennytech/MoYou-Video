@@ -3,9 +3,11 @@
 
     <string name="app_name">WIIIVideo</string>
     <string name="action_settings">Settings</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="sort_default">综合排序</string>
+    <string name="sort_new">最新发布</string>
+    <string name="sort_paly_times">最多播放</string>
+    <string name="sort_comments">最多评论</string>
+    <string name="sort_collects">最多收藏</string>
     
     <string name="msg_loading">Loading...</string>
 

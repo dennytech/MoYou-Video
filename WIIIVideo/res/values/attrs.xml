@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="NetworkImageView">
+        <attr name="filterBitmap" format="boolean" />
+        <attr name="requireBeforeAttach" format="boolean" />
+        <attr name="placeholderEmpty" format="reference" />
+        <attr name="placeholderLoading" format="reference" />
+        <attr name="placeholderError" format="reference" />
+    </declare-styleable>
+
+</resources>
