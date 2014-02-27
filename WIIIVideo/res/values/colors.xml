@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="background_tab_pressed">#6633B5E5</color>
     <color name="loading_back">#0082be</color>
     <color name="bg_blue">#0eaffb</color>
     <color name="bg_light_blue">#880eaffb</color>
