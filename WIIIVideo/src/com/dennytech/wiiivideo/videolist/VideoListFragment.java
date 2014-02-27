@@ -1,6 +1,5 @@
 package com.dennytech.wiiivideo.videolist;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,30 +14,40 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.dennytech.common.adapter.BasicAdapter;
+import com.dennytech.common.service.dataservice.mapi.CacheType;
+import com.dennytech.common.service.dataservice.mapi.MApiRequest;
+import com.dennytech.common.service.dataservice.mapi.MApiRequestHandler;
+import com.dennytech.common.service.dataservice.mapi.MApiResponse;
+import com.dennytech.common.service.dataservice.mapi.impl.BasicMApiRequest;
 import com.dennytech.wiiivideo.R;
 import com.dennytech.wiiivideo.app.WVFragment;
 import com.dennytech.wiiivideo.data.Video;
 import com.dennytech.wiiivideo.videolist.view.VideoListItem;
 
 public class VideoListFragment extends WVFragment implements
-		OnItemClickListener {
+		OnItemClickListener, MApiRequestHandler {
 
+	private MApiRequest request;
 	private Task task;
 	private Adapter adapter;
 
-	private int order;
+	private String url;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		order = getArguments().getInt("order");
+		url = getArguments().getString("url");
+		if (url == null) {
+			url = getActivity().getIntent().getData().getQueryParameter("url");
+		}
 	}
 
 	@Override
@@ -57,9 +66,12 @@ public class VideoListFragment extends WVFragment implements
 		super.onViewCreated(view, savedInstanceState);
 		adapter.notifyDataSetChanged();
 	}
-	
+
 	@Override
 	public void onDestroy() {
+		if (request != null) {
+			mapiService().abort(request, this, true);
+		}
 		if (task != null) {
 			task.cancel(true);
 		}
@@ -86,8 +98,7 @@ public class VideoListFragment extends WVFragment implements
 		protected List<Video> doInBackground(String... params) {
 			List<Video> videos = new ArrayList<Video>();
 			try {
-				Document doc = Jsoup.connect(params[0]).userAgent("Mozilla")
-						.get();
+				Document doc = Jsoup.parse(params[0]);
 				Element vlist = doc.getElementsByClass("sk-vlist").get(0);
 				Elements v = vlist.getElementsByClass("v");
 				for (Element element : v) {
@@ -115,8 +126,7 @@ public class VideoListFragment extends WVFragment implements
 					videos.add(video);
 				}
 
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
 				return null;
 			}
 			return videos;
@@ -133,9 +143,20 @@ public class VideoListFragment extends WVFragment implements
 
 		List<Video> videoList = new ArrayList<Video>();
 		int page = 1;
+		String errorMsg;
 
 		public void appendData(List<Video> videos) {
-			videoList.addAll(videos);
+			if (videos == null) {
+				setError("数据为空");
+				
+			} else {
+				videoList.addAll(videos);
+				notifyDataSetChanged();
+			}
+		}
+
+		public void setError(String error) {
+			errorMsg = error;
 			notifyDataSetChanged();
 		}
 
@@ -149,7 +170,7 @@ public class VideoListFragment extends WVFragment implements
 			if (position < videoList.size()) {
 				return videoList.get(position);
 			}
-			return LOADING;
+			return errorMsg == null ? LOADING : ERROR;
 		}
 
 		@Override
@@ -165,10 +186,26 @@ public class VideoListFragment extends WVFragment implements
 					task.cancel(true);
 				}
 				task = new Task();
-				task.execute("http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_"
-						+ order + "_page_" + page + "?");
+				if (request != null) {
+					mapiService().abort(request, VideoListFragment.this, true);
+				}
+				request = BasicMApiRequest.mapiGet(url + "_page_" + page + "?",
+						CacheType.NORMAL, null);
+				mapiService().exec(request, VideoListFragment.this);
+
 				page += 1;
 				return getLoadingView(parent, convertView);
+
+			} else if (item == ERROR) {
+				return getFailedView(errorMsg, new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						errorMsg = null;
+						notifyDataSetChanged();
+					}
+				}, parent, convertView);
+
 			} else {
 				View view = convertView;
 				if (!(view instanceof VideoListItem)) {
@@ -180,6 +217,31 @@ public class VideoListFragment extends WVFragment implements
 			}
 		}
 
+	}
+
+	@Override
+	public void onRequestStart(MApiRequest req) {
+	}
+
+	@Override
+	public void onRequestProgress(MApiRequest req, int count, int total) {
+
+	}
+
+	@Override
+	public void onRequestFinish(MApiRequest req, MApiResponse resp) {
+		if (resp.result() instanceof String) {
+			if (task != null) {
+				task.cancel(true);
+			}
+			task = new Task();
+			task.execute((String) resp.result());
+		}
+	}
+
+	@Override
+	public void onRequestFailed(MApiRequest req, MApiResponse resp) {
+		adapter.setError(resp.message().getErrorMsg());
 	}
 
 }

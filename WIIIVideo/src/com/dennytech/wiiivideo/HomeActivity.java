@@ -34,7 +34,7 @@ public class HomeActivity extends WVActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		mViewPager.setOffscreenPageLimit(5);
-		
+
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		tabs.setViewPager(mViewPager);
 		tabs.setIndicatorColor(0xFFC9C9C9);
@@ -65,8 +65,12 @@ public class HomeActivity extends WVActivity {
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			Fragment fragment = new VideoListFragment();
+			int order = position + 1;
 			Bundle args = new Bundle();
-			args.putInt("order", position + 1);
+			args.putString(
+					"url",
+					"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_"
+							+ order);
 			fragment.setArguments(args);
 			return fragment;
 		}
