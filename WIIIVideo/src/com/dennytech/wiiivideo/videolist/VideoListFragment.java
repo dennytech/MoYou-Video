@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -30,7 +25,10 @@ import com.dennytech.common.service.dataservice.mapi.impl.BasicMApiRequest;
 import com.dennytech.wiiivideo.R;
 import com.dennytech.wiiivideo.app.WVFragment;
 import com.dennytech.wiiivideo.data.Video;
+import com.dennytech.wiiivideo.parser.SeachResultParseHelper;
 import com.dennytech.wiiivideo.videolist.view.VideoListItem;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
 
 public class VideoListFragment extends WVFragment implements
@@ -90,8 +88,8 @@ public class VideoListFragment extends WVFragment implements
 			Intent intent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("wvideo://player?url=" + url));
 			startActivity(intent);
-			
-			HashMap<String,String> map = new HashMap<String,String>();
+
+			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("__ct__", String.valueOf(position));
 			map.put("title", String.valueOf(((Video) item).title));
 			MobclickAgent.onEvent(getActivity(), "video_list_item_click", map);
@@ -103,40 +101,12 @@ public class VideoListFragment extends WVFragment implements
 
 		@Override
 		protected List<Video> doInBackground(String... params) {
-			List<Video> videos = new ArrayList<Video>();
-			try {
-				Document doc = Jsoup.parse(params[0]);
-				Element vlist = doc.getElementsByClass("sk-vlist").get(0);
-				Elements v = vlist.getElementsByClass("v");
-				for (Element element : v) {
-					Video video = new Video();
-					Element vthumb = element.getElementsByClass("v-thumb").get(
-							0);
-					video.thumb = vthumb.getElementsByTag("img").attr("src");
-					video.length = vthumb.getElementsByClass("v-time").get(0)
-							.childNode(0).toString();
-
-					Element vmeta = element.getElementsByClass("v-meta").get(0);
-					video.title = vmeta.getElementsByTag("a").get(0)
-							.attr("title");
-					video.id = vmeta.getElementsByTag("a").get(0).attr("href")
-							.replace("http://v.youku.com/v_show/id_", "")
-							.replace(".html", "");
-
-					Elements vmetadata = vmeta
-							.getElementsByClass("v-meta-data");
-					video.playTimes = vmetadata.get(1).getElementsByTag("span")
-							.text();
-					video.publishTime = vmetadata.get(2)
-							.getElementsByTag("span").text();
-
-					videos.add(video);
-				}
-
-			} catch (Exception e) {
-				return null;
-			}
-			return videos;
+			SeachResultParseHelper helper = SeachResultParseHelper.instance(getActivity());
+			String json = helper.parse(params[0]);
+			List<Video> result = new Gson().fromJson(json,
+					new TypeToken<List<Video>>() {
+					}.getType());
+			return result;
 		}
 
 		@Override
@@ -155,7 +125,7 @@ public class VideoListFragment extends WVFragment implements
 		public void appendData(List<Video> videos) {
 			if (videos == null) {
 				setError("数据为空");
-				
+
 			} else {
 				videoList.addAll(videos);
 				notifyDataSetChanged();

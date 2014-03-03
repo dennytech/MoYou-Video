@@ -3,6 +3,8 @@ package com.dennytech.wiiivideo;
 import java.util.HashMap;
 import java.util.Locale;
 
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,21 +13,32 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.dennytech.wiiivideo.app.WVActivity;
+import com.baruckis.SlidingMenuImplementation.FromXML.ActivityBase;
+import com.baruckis.SlidingMenuImplementation.FromXML.SlidingMenuInitialiser;
+import com.baruckis.SlidingMenuImplementation.FromXML.SlidingMenuListFragmentConcrete;
+import com.dennytech.wiiivideo.data.Home;
+import com.dennytech.wiiivideo.data.HomeTag;
 import com.dennytech.wiiivideo.videolist.VideoGridFragment;
 import com.dennytech.wiiivideo.videolist.VideoListFragment;
 import com.dennytech.wiiivideo.widget.PagerSlidingTabStrip;
+import com.google.gson.Gson;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.onlineconfig.UmengOnlineConfigureListener;
 import com.umeng.update.UmengUpdateAgent;
 
-public class HomeActivity extends WVActivity {
+public class HomeActivity extends ActivityBase implements
+		UmengOnlineConfigureListener {
 
-	private SectionsPagerAdapter mSectionsPagerAdapter;
+	private SectionsPagerAdapter sPagerAdapter;
 	private PagerSlidingTabStrip tabs;
 	private ViewPager mViewPager;
+
+	private Home home;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +47,11 @@ public class HomeActivity extends WVActivity {
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(
-				getSupportFragmentManager());
+		sPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
-		mViewPager.setAdapter(mSectionsPagerAdapter);
+		mViewPager.setAdapter(sPagerAdapter);
 		mViewPager.setOffscreenPageLimit(5);
 
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -49,9 +61,19 @@ public class HomeActivity extends WVActivity {
 
 			@Override
 			public void onPageSelected(int index) {
+				switch (index) {
+				case 0:
+					slidingMenuInitialiser.getSlidingMenu().setTouchModeAbove(
+							SlidingMenu.TOUCHMODE_FULLSCREEN);
+					break;
+				default:
+					slidingMenuInitialiser.getSlidingMenu().setTouchModeAbove(
+							SlidingMenu.TOUCHMODE_MARGIN);
+					break;
+				}
+
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("page", mSectionsPagerAdapter.getPageTitle(index)
-						.toString());
+				map.put("page", sPagerAdapter.getPageTitle(index).toString());
 				MobclickAgent.onEvent(HomeActivity.this, "home_page_select",
 						map);
 			}
@@ -59,8 +81,7 @@ public class HomeActivity extends WVActivity {
 			@Override
 			public void onPageScrolled(int index, float arg1, int arg2) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("page", mSectionsPagerAdapter.getPageTitle(index)
-						.toString());
+				map.put("page", sPagerAdapter.getPageTitle(index).toString());
 				MobclickAgent.onEvent(HomeActivity.this, "home_page_scroll",
 						map);
 			}
@@ -71,8 +92,29 @@ public class HomeActivity extends WVActivity {
 			}
 		});
 
+		String homeStr = MobclickAgent.getConfigParams(this, "home");
+		if (!TextUtils.isEmpty(homeStr)) {
+			home = new Gson().fromJson(homeStr, Home.class);
+			sPagerAdapter.notifyDataSetChanged();
+			tabs.notifyDataSetChanged();
+		}
+
 		MobclickAgent.updateOnlineConfig(this);
+		// MobclickAgent.setOnlineConfigureListener(this);
 		UmengUpdateAgent.update(this);
+
+		slidingMenuInitialiser = new SlidingMenuInitialiser(this);
+		if (home != null && home.tags != null) {
+			slidingMenuInitialiser.createSlidingMenu(
+					SlidingMenuListFragmentConcrete.class, home.tags);
+		} else {
+			HomeTag[] arr = new HomeTag[1];
+			arr[0] = new HomeTag("全部视频", "", "魔兽争霸3");
+			slidingMenuInitialiser.createSlidingMenu(
+					SlidingMenuListFragmentConcrete.class, arr);
+		}
+
+		slidingMenuInitialiser.getSlidingMenu().setTouchmodeMarginThreshold(10);
 	}
 
 	@Override
@@ -113,25 +155,36 @@ public class HomeActivity extends WVActivity {
 			} else {
 				fragment = new VideoListFragment();
 			}
-			int order = position + 1;
+
 			Bundle args = new Bundle();
-			args.putString(
-					"url",
-					"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_"
-							+ order);
+			if (home != null && home.sorts != null) {
+				args.putString("url", home.sorts[position].url);
+			} else {
+				int order = position + 1;
+				args.putString(
+						"url",
+						"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_"
+								+ order);
+			}
+
 			fragment.setArguments(args);
 			return fragment;
 		}
 
 		@Override
 		public int getCount() {
-			// Show 3 total pages.
-			return 5;
+			// default 5.
+			return (home == null || home.sorts == null) ? 5 : home.sorts.length;
 		}
 
 		@Override
 		public CharSequence getPageTitle(int position) {
 			Locale l = Locale.getDefault();
+			if (home != null && home.sorts != null) {
+				return home.sorts[position].title.toUpperCase(l);
+			}
+
+			// default
 			switch (position) {
 			case 0:
 				return getString(R.string.sort_default).toUpperCase(l);
@@ -145,6 +198,19 @@ public class HomeActivity extends WVActivity {
 				return getString(R.string.sort_collects).toUpperCase(l);
 			}
 			return null;
+		}
+	}
+
+	@Override
+	public void onDataReceived(JSONObject config) {
+		if (config == null) {
+			return;
+		}
+		String homeStr = config.optString("home");
+		if (!TextUtils.isEmpty(homeStr)) {
+			home = new Gson().fromJson(homeStr, Home.class);
+			sPagerAdapter.notifyDataSetChanged();
+			tabs.notifyDataSetChanged();
 		}
 	}
 
