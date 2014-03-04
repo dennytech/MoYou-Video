@@ -1,4 +1,36 @@
 {
-	"about_content":"最新最热门的游戏视频，尽在 WIII！",
-	"home":{"tags":[{"title":"全部视频", "icon":"", "keyword":"魔兽争霸3"}, {"title":"人族", "icon":"", "keyword":"魔兽争霸3人族"}], "sorts":[{"title":"综合排序", "url":"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_1", "pageable":true}, {"title":"最新发布", "url":"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_2", "pageable":true}, {"title":"最多播放", "url":"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_3", "pageable":true}]}
-}	
+	"data":{
+		"about_content":"最新最热门的游戏视频，尽在 War！",
+		"home":{
+			"tags":[
+				{
+					"title":"全部视频",
+					"icon":"",
+					"keyword":"魔兽争霸3"
+				},
+				{
+					"title":"人族",
+					"icon":"",
+					"keyword":"魔兽争霸3人族"
+				}
+			],
+			"sorts":[
+				{
+					"title":"综合排序",
+					"url":"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_1",
+					"pageable":true
+				},
+				{
+					"title":"最新发布",
+					"url":"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_2",
+					"pageable":true
+				},
+				{
+					"title":"最多播放",
+					"url":"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_3",
+					"pageable":true
+				}
+			]
+		}
+	}
+}
