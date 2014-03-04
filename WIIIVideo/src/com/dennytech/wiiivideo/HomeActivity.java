@@ -16,24 +16,28 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.baruckis.SlidingMenuImplementation.FromXML.ActivityBase;
 import com.baruckis.SlidingMenuImplementation.FromXML.SlidingMenuInitialiser;
 import com.baruckis.SlidingMenuImplementation.FromXML.SlidingMenuListFragmentConcrete;
+import com.dennytech.common.service.configservice.ConfigChangeListener;
 import com.dennytech.wiiivideo.data.Home;
 import com.dennytech.wiiivideo.data.HomeTag;
 import com.dennytech.wiiivideo.videolist.VideoGridFragment;
 import com.dennytech.wiiivideo.videolist.VideoListFragment;
 import com.dennytech.wiiivideo.widget.PagerSlidingTabStrip;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.onlineconfig.UmengOnlineConfigureListener;
 import com.umeng.update.UmengUpdateAgent;
 
 public class HomeActivity extends ActivityBase implements
-		UmengOnlineConfigureListener {
+		UmengOnlineConfigureListener, ConfigChangeListener {
 
+	private View root;
 	private SectionsPagerAdapter sPagerAdapter;
 	private PagerSlidingTabStrip tabs;
 	private ViewPager mViewPager;
@@ -45,16 +49,32 @@ public class HomeActivity extends ActivityBase implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-		// Create the adapter that will return a fragment for each of the three
-		// primary sections of the app.
+		root = findViewById(R.id.root);
+
+		mViewPager = (ViewPager) findViewById(R.id.pager);
+		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+		home = (Home) configService().getObject("home", Home.class);
+		if (home != null) {
+			initView();
+		} else {
+			showProgressDialog(getString(R.string.msg_loading));
+		}
+		configService().refresh();
+		configService().addListener("home", this);
+
+		MobclickAgent.updateOnlineConfig(this);
+		// MobclickAgent.setOnlineConfigureListener(this);
+		UmengUpdateAgent.update(this);
+	}
+
+	private void initView() {
+		root.setVisibility(View.VISIBLE);
+
 		sPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(sPagerAdapter);
 		mViewPager.setOffscreenPageLimit(5);
 
-		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		tabs.setViewPager(mViewPager);
 		tabs.setIndicatorColor(0xFFC9C9C9);
 		tabs.setOnPageChangeListener(new OnPageChangeListener() {
@@ -91,17 +111,6 @@ public class HomeActivity extends ActivityBase implements
 
 			}
 		});
-
-		String homeStr = MobclickAgent.getConfigParams(this, "home");
-		if (!TextUtils.isEmpty(homeStr)) {
-			home = new Gson().fromJson(homeStr, Home.class);
-			sPagerAdapter.notifyDataSetChanged();
-			tabs.notifyDataSetChanged();
-		}
-
-		MobclickAgent.updateOnlineConfig(this);
-		// MobclickAgent.setOnlineConfigureListener(this);
-		UmengUpdateAgent.update(this);
 
 		slidingMenuInitialiser = new SlidingMenuInitialiser(this);
 		if (home != null && home.tags != null) {
@@ -173,8 +182,7 @@ public class HomeActivity extends ActivityBase implements
 
 		@Override
 		public int getCount() {
-			// default 5.
-			return (home == null || home.sorts == null) ? 5 : home.sorts.length;
+			return (home == null || home.sorts == null) ? 0 : home.sorts.length;
 		}
 
 		@Override
@@ -182,20 +190,6 @@ public class HomeActivity extends ActivityBase implements
 			Locale l = Locale.getDefault();
 			if (home != null && home.sorts != null) {
 				return home.sorts[position].title.toUpperCase(l);
-			}
-
-			// default
-			switch (position) {
-			case 0:
-				return getString(R.string.sort_default).toUpperCase(l);
-			case 1:
-				return getString(R.string.sort_new).toUpperCase(l);
-			case 2:
-				return getString(R.string.sort_paly_times).toUpperCase(l);
-			case 3:
-				return getString(R.string.sort_comments).toUpperCase(l);
-			case 4:
-				return getString(R.string.sort_collects).toUpperCase(l);
 			}
 			return null;
 		}
@@ -211,6 +205,19 @@ public class HomeActivity extends ActivityBase implements
 			home = new Gson().fromJson(homeStr, Home.class);
 			sPagerAdapter.notifyDataSetChanged();
 			tabs.notifyDataSetChanged();
+		}
+	}
+
+	@Override
+	public void onConfigChange(String key, JsonElement from, JsonElement to) {
+		if ("home".equals(key)) {
+			dismissDialog();
+			if (to != null) {
+				home = new Gson().fromJson(to, Home.class);
+				initView();
+			} else {
+				showDialog(getString(R.string.app_name), "服务器繁忙，请稍后再试", null);
+			}
 		}
 	}
 

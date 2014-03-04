@@ -39,7 +39,7 @@ public class VideoListFragment extends WVFragment implements
 	private Adapter adapter;
 
 	private String url;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

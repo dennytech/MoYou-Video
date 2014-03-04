@@ -3,14 +3,7 @@
 
     <string name="app_name">WIIIVideo</string>
     <string name="action_about">关于</string>
-    <string name="sort_default">综合排序</string>
-    <string name="sort_new">最新发布</string>
-    <string name="sort_paly_times">最多播放</string>
-    <string name="sort_comments">最多评论</string>
-    <string name="sort_collects">最多收藏</string>
-    
     <string name="msg_loading">加载中...</string>
-    
     <string name="about_content">最新最热门的游戏视频，尽在 WIIIVideo！</string>
     <string name="about_check_update">检查更新</string>
 

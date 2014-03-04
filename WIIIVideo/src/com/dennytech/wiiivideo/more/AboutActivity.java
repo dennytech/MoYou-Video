@@ -16,23 +16,24 @@ import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
-public class AboutActivity extends WVActivity implements OnClickListener{
-	
+public class AboutActivity extends WVActivity implements OnClickListener {
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_about);
 		setTitle(getText(R.string.action_about));
-		
+
 		TextView content = (TextView) findViewById(R.id.about_content);
-		content.setText(MobclickAgent.getConfigParams(this, "about_content"));
+		content.setText(configService().getString("about_content",
+				getString(R.string.about_content)));
 
 		TextView version = (TextView) findViewById(R.id.version);
 		version.setText("版本：" + getVersionName());
-		
+
 		findViewById(R.id.about_check_update).setOnClickListener(this);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.about_check_update) {
@@ -67,7 +68,7 @@ public class AboutActivity extends WVActivity implements OnClickListener{
 			});
 			UmengUpdateAgent.update(AboutActivity.this);
 			showProgressDialog(getString(R.string.update_checking));
-			
+
 			MobclickAgent.onEvent(AboutActivity.this, "about_check_update");
 		}
 	}
