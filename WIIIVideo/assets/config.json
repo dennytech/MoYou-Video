@@ -4,19 +4,34 @@
 		"home":{
 			"tags":[
 				{
-					"title":"全部视频",
-					"icon":"http://img0.bdstatic.com/img/image/logo_cacece1e9a.png",
-					"keyword":"魔兽争霸3"
-				},
-				{
-					"title":"人族",
-					"icon":"",
-					"keyword":"魔兽争霸3人族"
-				},
-				{
 					"title":"魔兽世界",
+					"icon":"http://img0.bdstatic.com/img/image/logo_cacece1e9a.png",
+					"keyword":"魔兽争霸"
+				},
+				{
+					"title":"魔兽争霸",
 					"icon":"",
-					"keyword":"魔兽世界"
+					"keyword":"魔兽争霸"
+				},
+				{
+					"title":"英雄联盟",
+					"icon":"",
+					"keyword":"英雄联盟"
+				},
+				{
+					"title":"炉石传说",
+					"icon":"",
+					"keyword":"炉石传说"
+				},
+				{
+					"title":"DOTA",
+					"icon":"",
+					"keyword":"DOTA"
+				},
+				{
+					"title":"DOTA2",
+					"icon":"",
+					"keyword":"DOTA2"
 				}
 			],
 			"sorts":[
