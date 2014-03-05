@@ -2,12 +2,12 @@ package com.baruckis.SlidingMenuImplementation.FromXML;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.baruckis.SlidingMenuImplementation.Constants;
@@ -24,6 +24,17 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 public abstract class SlidingMenuListFragmentBase extends ListFragment {
 	protected List<SlidingMenuListItem> slidingMenuList;
 	protected SlidingMenu menu = null;
+	protected SlidingMenuListAdapter adapter;
+
+	private OnItemClickListener onItemLickListener;
+
+	public void setOnItemClickListener(OnItemClickListener l) {
+		this.onItemLickListener = l;
+	}
+	
+	public SlidingMenuListAdapter getListAdapter() {
+		return adapter;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,9 +63,8 @@ public abstract class SlidingMenuListFragmentBase extends ListFragment {
 		slidingMenuList = slidingMenuListFormatter.getList();
 
 		// We pass our newly generated list to the adapter
-		SlidingMenuListAdapter adapter = new SlidingMenuListAdapter(
-				getActivity(), R.layout.sliding_menu_holo_dark_list_row,
-				slidingMenuList);
+		adapter = new SlidingMenuListAdapter(getActivity(),
+				R.layout.sliding_menu_holo_dark_list_row, slidingMenuList);
 
 		setListAdapter(adapter);
 	}
@@ -64,11 +74,9 @@ public abstract class SlidingMenuListFragmentBase extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-
-		SlidingMenuListItem item = slidingMenuList.get(position);
-
-		CharSequence text;
-		Activity activity = getActivity();
+		if (onItemLickListener != null) {
+			onItemLickListener.onItemClick(l, v, position, id);
+		}
 	}
 
 	public void setSlidingMenu(SlidingMenu menu) {

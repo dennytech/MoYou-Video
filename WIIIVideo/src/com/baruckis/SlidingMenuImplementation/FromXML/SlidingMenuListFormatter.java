@@ -27,7 +27,7 @@ public class SlidingMenuListFormatter {
 			HomeTag tag = tagsArr[i];
 			// Creates new object using these values.
 			SlidingMenuListItem slidingMenuListItem = new SlidingMenuListItem(
-					i, tag.title, tag.icon);
+					i, tag.title, tag.icon, tag.keyword);
 
 			// Fills the list.
 			list.add(slidingMenuListItem);

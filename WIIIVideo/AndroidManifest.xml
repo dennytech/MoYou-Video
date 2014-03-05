@@ -72,7 +72,7 @@
         </meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Umeng" >
+            android:value="GooglePlay" >
         </meta-data>
 
         <service

@@ -5,6 +5,4 @@
     android:layout_height="match_parent"
     android:background="#555555"
     android:divider="#6e6e6e"
-    android:dividerHeight="2dip"
-    android:paddingLeft="@dimen/sliding_menu_list_padding"
-    android:paddingRight="@dimen/sliding_menu_list_padding" />
+    android:dividerHeight="2dip" />

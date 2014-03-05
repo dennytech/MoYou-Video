@@ -10,4 +10,5 @@
     <color name="text_gray">#ababab</color>
     <color name="text_deep_gray">#99000000</color>
     <color name="text_white_normal">#a6ffffff</color>
+    <color name="sliding_menu_item_back_d">#8B3A3A</color>
 </resources>

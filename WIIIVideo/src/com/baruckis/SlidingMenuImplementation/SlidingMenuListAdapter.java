@@ -24,6 +24,8 @@ public class SlidingMenuListAdapter extends ArrayAdapter<SlidingMenuListItem> {
 	
 	private ImageView slidingMenuItemIcon;
 	private TextView slidingMenuItemName;
+	
+	private int selected;
 
 	public SlidingMenuListAdapter(Context context, int rowViewResourceId,
 			List<SlidingMenuListItem> objects) {
@@ -39,6 +41,11 @@ public class SlidingMenuListAdapter extends ArrayAdapter<SlidingMenuListItem> {
 
 	public SlidingMenuListItem getItem(int index) {
 		return this.slidingMenuItemsList.get(index);
+	}
+	
+	public void setSelecte(int index) {
+		selected = index;
+		notifyDataSetChanged();
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -62,7 +69,13 @@ public class SlidingMenuListAdapter extends ArrayAdapter<SlidingMenuListItem> {
 				context.getPackageName());
 
 		slidingMenuItemIcon.setImageResource(imageResource);
-
+		
+		if (position == selected) {
+			row.setBackgroundColor(context.getResources().getColor(R.color.sliding_menu_item_back_d));
+		} else {
+			row.setBackgroundColor(0);
+		}
+		
 		return row;
 	}
 }

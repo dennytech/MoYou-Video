@@ -3,8 +3,6 @@ package com.dennytech.wiiivideo;
 import java.util.HashMap;
 import java.util.Locale;
 
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,11 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
+import com.baruckis.SlidingMenuImplementation.SlidingMenuListItem;
 import com.baruckis.SlidingMenuImplementation.FromXML.ActivityBase;
 import com.baruckis.SlidingMenuImplementation.FromXML.SlidingMenuInitialiser;
 import com.baruckis.SlidingMenuImplementation.FromXML.SlidingMenuListFragmentConcrete;
@@ -31,11 +32,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.analytics.onlineconfig.UmengOnlineConfigureListener;
 import com.umeng.update.UmengUpdateAgent;
 
-public class HomeActivity extends ActivityBase implements
-		UmengOnlineConfigureListener, ConfigChangeListener {
+public class HomeActivity extends ActivityBase implements ConfigChangeListener,
+		OnItemClickListener {
 
 	private View root;
 	private SectionsPagerAdapter sPagerAdapter;
@@ -115,12 +115,12 @@ public class HomeActivity extends ActivityBase implements
 		slidingMenuInitialiser = new SlidingMenuInitialiser(this);
 		if (home != null && home.tags != null) {
 			slidingMenuInitialiser.createSlidingMenu(
-					SlidingMenuListFragmentConcrete.class, home.tags);
+					SlidingMenuListFragmentConcrete.class, home.tags, this);
 		} else {
 			HomeTag[] arr = new HomeTag[1];
 			arr[0] = new HomeTag("全部视频", "", "魔兽争霸3");
 			slidingMenuInitialiser.createSlidingMenu(
-					SlidingMenuListFragmentConcrete.class, arr);
+					SlidingMenuListFragmentConcrete.class, arr, this);
 		}
 
 		slidingMenuInitialiser.getSlidingMenu().setTouchmodeMarginThreshold(10);
@@ -131,6 +131,30 @@ public class HomeActivity extends ActivityBase implements
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.home, menu);
 		return true;
+	}
+
+	/**
+	 * Menu Item Click
+	 * 
+	 * @param parent
+	 * @param view
+	 * @param position
+	 * @param id
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		slidingMenuInitialiser.getSlidingMenu().toggle();
+		slidingMenuInitialiser.getSlidingMenuListFragment().getListAdapter()
+				.setSelecte(position);
+		
+		SlidingMenuListItem item = (SlidingMenuListItem) parent.getItemAtPosition(position);
+		sPagerAdapter.setKeyword(item.Keyword);
+		
+		Fragment current = sPagerAdapter.getCurrentFragment();
+		if (current instanceof VideoListFragment) {
+			((VideoListFragment) current).setKeyword(item.Keyword);
+		}
 	}
 
 	@Override
@@ -148,6 +172,12 @@ public class HomeActivity extends ActivityBase implements
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
+		
+		private String keyword;
+		
+		public void setKeyword(String kw) {
+			this.keyword = kw;
+		}
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -193,18 +223,26 @@ public class HomeActivity extends ActivityBase implements
 			}
 			return null;
 		}
-	}
+		
+		private Fragment currentFragment;
 
-	@Override
-	public void onDataReceived(JSONObject config) {
-		if (config == null) {
-			return;
-		}
-		String homeStr = config.optString("home");
-		if (!TextUtils.isEmpty(homeStr)) {
-			home = new Gson().fromJson(homeStr, Home.class);
-			sPagerAdapter.notifyDataSetChanged();
-			tabs.notifyDataSetChanged();
+        public Fragment getCurrentFragment() {
+            return currentFragment;
+        }
+		
+		@Override
+		public void setPrimaryItem(ViewGroup container, int position,
+				Object object) {
+			if (getCurrentFragment() != object) {
+                currentFragment = ((Fragment) object);
+            }
+			if (object instanceof VideoListFragment) {
+				VideoListFragment fragment = ((VideoListFragment) object);
+				if (keyword != null) {
+					fragment.setKeyword(keyword);
+				}
+			}
+			super.setPrimaryItem(container, position, object);
 		}
 	}
 

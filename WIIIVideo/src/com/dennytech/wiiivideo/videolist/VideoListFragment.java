@@ -34,12 +34,13 @@ import com.umeng.analytics.MobclickAgent;
 public class VideoListFragment extends WVFragment implements
 		OnItemClickListener, MApiRequestHandler {
 
-	private MApiRequest request;
-	private Task task;
-	private Adapter adapter;
+	protected MApiRequest request;
+	protected Task task;
+	protected Adapter adapter;
 
-	private String url;
-	
+	protected String url;
+	protected String keyword;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,10 +56,14 @@ public class VideoListFragment extends WVFragment implements
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.layout_list, null);
 		ListView list = (ListView) view.findViewById(R.id.list);
-		adapter = new Adapter();
+		adapter = createAdapter();
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
 		return view;
+	}
+
+	protected Adapter createAdapter() {
+		return new Adapter();
 	}
 
 	@Override
@@ -101,7 +106,8 @@ public class VideoListFragment extends WVFragment implements
 
 		@Override
 		protected List<Video> doInBackground(String... params) {
-			SeachResultParseHelper helper = SeachResultParseHelper.instance(getActivity());
+			SeachResultParseHelper helper = SeachResultParseHelper
+					.instance(getActivity());
 			String json = helper.parse(params[0]);
 			List<Video> result = new Gson().fromJson(json,
 					new TypeToken<List<Video>>() {
@@ -130,6 +136,13 @@ public class VideoListFragment extends WVFragment implements
 				videoList.addAll(videos);
 				notifyDataSetChanged();
 			}
+		}
+
+		public void reset() {
+			videoList.clear();
+			page = 1;
+			errorMsg = null;
+			notifyDataSetChanged();
 		}
 
 		public void setError(String error) {
@@ -162,15 +175,9 @@ public class VideoListFragment extends WVFragment implements
 				if (task != null) {
 					task.cancel(true);
 				}
-				task = new Task();
-				if (request != null) {
-					mapiService().abort(request, VideoListFragment.this, true);
-				}
-				request = BasicMApiRequest.mapiGet(url + "_page_" + page + "?",
-						CacheType.NORMAL, null);
-				mapiService().exec(request, VideoListFragment.this);
 
-				page += 1;
+				requestData();
+
 				return getLoadingView(parent, convertView);
 
 			} else if (item == ERROR) {
@@ -184,14 +191,35 @@ public class VideoListFragment extends WVFragment implements
 				}, parent, convertView);
 
 			} else {
-				View view = convertView;
-				if (!(view instanceof VideoListItem)) {
-					view = getLayoutInflater(getArguments()).inflate(
-							R.layout.layout_video_list_item, null);
-				}
-				((VideoListItem) view).setData((Video) item);
-				return view;
+				return createItemViewWithData((Video) item, convertView);
 			}
+		}
+
+		protected void requestData() {
+			if (request != null) {
+				mapiService().abort(request, VideoListFragment.this, true);
+			}
+
+			StringBuilder sb = new StringBuilder(url);
+			if (keyword != null) {
+				sb.append("_q_").append(keyword);
+			}
+			sb.append("_page_").append(page);
+			request = BasicMApiRequest.mapiGet(sb.toString(), CacheType.NORMAL,
+					null);
+			mapiService().exec(request, VideoListFragment.this);
+
+			page += 1;
+		}
+
+		protected View createItemViewWithData(Video item, View convertView) {
+			View view = convertView;
+			if (!(view instanceof VideoListItem)) {
+				view = getLayoutInflater(getArguments()).inflate(
+						R.layout.layout_video_list_item, null);
+			}
+			((VideoListItem) view).setData(item);
+			return view;
 		}
 
 	}
@@ -219,6 +247,17 @@ public class VideoListFragment extends WVFragment implements
 	@Override
 	public void onRequestFailed(MApiRequest req, MApiResponse resp) {
 		adapter.setError(resp.message().getErrorMsg());
+	}
+
+	public void reset() {
+		adapter.reset();
+	}
+
+	public void setKeyword(String kw) {
+		if (kw != null && !kw.equals(this.keyword)) {
+			this.keyword = kw;
+			adapter.reset();
+		}
 	}
 
 }
