@@ -4,7 +4,7 @@
     android:layout_height="50dp"
     android:orientation="horizontal" >
 
-    <ImageView
+    <com.dennytech.wiiivideo.widget.NetworkThumbView
         android:id="@+id/row_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"

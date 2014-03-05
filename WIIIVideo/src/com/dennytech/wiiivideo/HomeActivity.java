@@ -149,11 +149,11 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 				.setSelecte(position);
 		
 		SlidingMenuListItem item = (SlidingMenuListItem) parent.getItemAtPosition(position);
-		sPagerAdapter.setKeyword(item.Keyword);
+		sPagerAdapter.setKeyword(item.keyword);
 		
 		Fragment current = sPagerAdapter.getCurrentFragment();
 		if (current instanceof VideoListFragment) {
-			((VideoListFragment) current).setKeyword(item.Keyword);
+			((VideoListFragment) current).setKeyword(item.keyword);
 		}
 	}
 

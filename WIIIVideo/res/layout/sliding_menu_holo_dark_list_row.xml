@@ -5,7 +5,7 @@
     android:background="@drawable/background_sliding_menu_item"
     android:orientation="horizontal" >
 
-    <ImageView
+    <com.dennytech.wiiivideo.widget.NetworkThumbView
         android:id="@+id/row_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

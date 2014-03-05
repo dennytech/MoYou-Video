@@ -25,6 +25,7 @@ import com.dennytech.common.service.dataservice.mapi.impl.BasicMApiRequest;
 import com.dennytech.wiiivideo.R;
 import com.dennytech.wiiivideo.app.WVFragment;
 import com.dennytech.wiiivideo.data.Video;
+import com.dennytech.wiiivideo.data.VideoList;
 import com.dennytech.wiiivideo.parser.SeachResultParseHelper;
 import com.dennytech.wiiivideo.videolist.view.VideoListItem;
 import com.google.gson.Gson;
@@ -36,6 +37,7 @@ public class VideoListFragment extends WVFragment implements
 
 	protected MApiRequest request;
 	protected Task task;
+	protected ListView listView;
 	protected Adapter adapter;
 
 	protected String url;
@@ -55,15 +57,19 @@ public class VideoListFragment extends WVFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.layout_list, null);
-		ListView list = (ListView) view.findViewById(R.id.list);
+		listView = (ListView) view.findViewById(R.id.list);
 		adapter = createAdapter();
-		list.setAdapter(adapter);
-		list.setOnItemClickListener(this);
+		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
 		return view;
 	}
 
 	protected Adapter createAdapter() {
 		return new Adapter();
+	}
+
+	protected Task createTask() {
+		return new Task();
 	}
 
 	@Override
@@ -88,45 +94,49 @@ public class VideoListFragment extends WVFragment implements
 			long id) {
 		Object item = parent.getItemAtPosition(position);
 		if (item instanceof Video) {
-			String url = "http://v.youku.com/player/getM3U8/vid/"
-					+ ((Video) item).id + "/type/mp4/v.m3u8";
-			Intent intent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("wvideo://player?url=" + url));
-			startActivity(intent);
+			playVideo((Video) item);
 
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("__ct__", String.valueOf(position));
 			map.put("title", String.valueOf(((Video) item).title));
 			MobclickAgent.onEvent(getActivity(), "video_list_item_click", map);
 		}
-
 	}
 
-	class Task extends AsyncTask<String, Void, List<Video>> {
+	protected void playVideo(Video v) {
+		String url = "http://v.youku.com/player/getM3U8/vid/" + v.id
+				+ "/type/mp4/v.m3u8";
+		Intent intent = new Intent(Intent.ACTION_VIEW,
+				Uri.parse("wvideo://player?url=" + url));
+		startActivity(intent);
+	}
+
+	class Task extends AsyncTask<String, Void, VideoList> {
 
 		@Override
-		protected List<Video> doInBackground(String... params) {
+		protected VideoList doInBackground(String... params) {
 			SeachResultParseHelper helper = SeachResultParseHelper
 					.instance(getActivity());
 			String json = helper.parse(params[0]);
-			List<Video> result = new Gson().fromJson(json,
-					new TypeToken<List<Video>>() {
+			VideoList result = new Gson().fromJson(json,
+					new TypeToken<VideoList>() {
 					}.getType());
 			return result;
 		}
 
 		@Override
-		protected void onPostExecute(List<Video> result) {
-			adapter.appendData(result);
+		protected void onPostExecute(VideoList result) {
+			adapter.appendData(result.list);
 		}
 
 	}
 
 	class Adapter extends BasicAdapter {
 
-		List<Video> videoList = new ArrayList<Video>();
-		int page = 1;
-		String errorMsg;
+		protected List<Video> videoList = new ArrayList<Video>();
+		protected int page = 1;
+		protected String errorMsg;
+		protected boolean isLoading;
 
 		public void appendData(List<Video> videos) {
 			if (videos == null) {
@@ -142,6 +152,7 @@ public class VideoListFragment extends WVFragment implements
 			videoList.clear();
 			page = 1;
 			errorMsg = null;
+			isLoading = false;
 			notifyDataSetChanged();
 		}
 
@@ -176,7 +187,10 @@ public class VideoListFragment extends WVFragment implements
 					task.cancel(true);
 				}
 
-				requestData();
+				if (!isLoading) {
+					requestData();
+					isLoading = true;
+				}
 
 				return getLoadingView(parent, convertView);
 
@@ -191,7 +205,7 @@ public class VideoListFragment extends WVFragment implements
 				}, parent, convertView);
 
 			} else {
-				return createItemViewWithData((Video) item, convertView);
+				return createItemViewWithData(position, (Video) item, convertView);
 			}
 		}
 
@@ -212,7 +226,7 @@ public class VideoListFragment extends WVFragment implements
 			page += 1;
 		}
 
-		protected View createItemViewWithData(Video item, View convertView) {
+		protected View createItemViewWithData(int position, Video item, View convertView) {
 			View view = convertView;
 			if (!(view instanceof VideoListItem)) {
 				view = getLayoutInflater(getArguments()).inflate(
@@ -239,8 +253,9 @@ public class VideoListFragment extends WVFragment implements
 			if (task != null) {
 				task.cancel(true);
 			}
-			task = new Task();
+			task = createTask();
 			task.execute((String) resp.result());
+			adapter.isLoading = false;
 		}
 	}
 

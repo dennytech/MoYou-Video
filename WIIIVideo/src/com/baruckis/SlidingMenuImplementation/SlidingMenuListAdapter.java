@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dennytech.wiiivideo.R;
+import com.dennytech.wiiivideo.widget.NetworkImageView;
 
 /**
  * @author Andrius Baruckis http://www.baruckis.com
@@ -22,7 +22,7 @@ public class SlidingMenuListAdapter extends ArrayAdapter<SlidingMenuListItem> {
 	private int rowViewResourceId;
 	private List<SlidingMenuListItem> slidingMenuItemsList = new ArrayList<SlidingMenuListItem>();
 	
-	private ImageView slidingMenuItemIcon;
+	private NetworkImageView slidingMenuItemIcon;
 	private TextView slidingMenuItemName;
 	
 	private int selected;
@@ -59,16 +59,11 @@ public class SlidingMenuListAdapter extends ArrayAdapter<SlidingMenuListItem> {
 		}
 		SlidingMenuListItem slidingMenuListItem = getItem(position);
 
-		slidingMenuItemIcon = (ImageView) row.findViewById(R.id.row_icon);
+		slidingMenuItemIcon = (NetworkImageView) row.findViewById(R.id.row_icon);
 		slidingMenuItemName = (TextView) row.findViewById(R.id.row_title);
 
-		slidingMenuItemName.setText(slidingMenuListItem.Name);
-
-		int imageResource = context.getResources().getIdentifier(
-				slidingMenuListItem.IconResourceId, null,
-				context.getPackageName());
-
-		slidingMenuItemIcon.setImageResource(imageResource);
+		slidingMenuItemName.setText(slidingMenuListItem.name);
+		slidingMenuItemIcon.setImage(slidingMenuListItem.icon);
 		
 		if (position == selected) {
 			row.setBackgroundColor(context.getResources().getColor(R.color.sliding_menu_item_back_d));

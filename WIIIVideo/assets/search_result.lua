@@ -1,21 +1,52 @@
+local Version = "1.0.201403051543"
+
 local Log = luajava.bindClass("com.dennytech.common.util.Log")
 local Toast = luajava.bindClass("android.widget.Toast")
 local Video = luajava.bindClass("com.dennytech.wiiivideo.data.Video")
 local Gson = luajava.bindClass("com.google.gson.Gson")
 local context
 
+Log:i("lua", "Version:" .. Version)
+
 function init(ctx)
-  Log:i("lua", "init start")
+  Log:i("lua", "init")
   context = ctx
 end
 
 function parse(source)
 	Log:i("lua", "parse start")
 
+    local recommend = luajava.newInstance("java.util.ArrayList")
 	local list = luajava.newInstance("java.util.ArrayList")
 
 	local Jsoup = luajava.bindClass("org.jsoup.Jsoup")
 	local doc = Jsoup:parse(source)
+
+	-- recommend
+	if doc:hasClass("recom_box") then
+		local recombox = doc:getElementsByClass("recom_box"):get(0)
+		local li = recombox:getElementsByTag("li")
+		local size = li:size()
+		for i=0,size do
+			local element = v:get(i)
+		    local video = luajava.newInstance("com.dennytech.wiiivideo.data.Video")
+			local pic = element:getElementsByClass("pic"):get(0)
+			video:setTitle(pic:attr("title"))
+			video:setId(pic:attr("_log_vid"))
+			video:setThumb(pic:getElementsByTag("img"):get(0):attr("src"))
+				
+			local span = element:getElementsByTag("span")
+			video:setLength(span:get(0):text())
+			video:setPlayTimes(span:get(1):text())
+			video:setPublishTime(span:get(2):text())
+			recommend:add(video)
+			if i == (size - 1) then
+        	    break
+            end
+		end
+	end
+
+	-- list
 	local vlist = doc:getElementsByClass("sk-vlist"):get(0)
 	local v = vlist:getElementsByClass("v")
     local size = v:size()
@@ -40,8 +71,12 @@ function parse(source)
         end
     end
 
+    local vl = luajava.newInstance("com.dennytech.wiiivideo.data.VideoList")
+    vl:setList(list)
+    vl:setRecommend(recommend)
+
     local gson = luajava.newInstance("com.google.gson.Gson")
-    local jsonStr = gson:toJson(list)
+    local jsonStr = gson:toJson(vl)
 
     Log:i("lua", "parse end")
 

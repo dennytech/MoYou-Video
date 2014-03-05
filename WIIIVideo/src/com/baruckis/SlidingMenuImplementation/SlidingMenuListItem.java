@@ -5,18 +5,18 @@ package com.baruckis.SlidingMenuImplementation;
  * 
  */
 public class SlidingMenuListItem {
-	public int Id;
-	public String Name;
-	public String IconResourceId;
-	public String Keyword;
+	public int id;
+	public String name;
+	public String icon;
+	public String keyword;
 
 	public SlidingMenuListItem() {
 	}
 
 	public SlidingMenuListItem(int id, String name, String iconResourceId, String Keyword) {
-		this.Id = id;
-		this.Name = name;
-		this.IconResourceId = iconResourceId;
-		this.Keyword = Keyword;
+		this.id = id;
+		this.name = name;
+		this.icon = iconResourceId;
+		this.keyword = Keyword;
 	}
 }

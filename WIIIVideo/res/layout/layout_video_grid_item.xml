@@ -4,16 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
+    android:layout_weight="1"
     android:background="@drawable/list_item_bg"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:orientation="vertical" >
 
     <com.dennytech.wiiivideo.widget.NetworkThumbView
         android:id="@+id/thumb"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginTop="12dp"
         android:scaleType="centerCrop"
         wv:placeholderEmpty="@drawable/ic_pic_loading"
         wv:placeholderError="@drawable/ic_pic_loading"

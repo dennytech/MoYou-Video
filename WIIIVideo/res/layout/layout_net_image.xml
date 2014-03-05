@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dennytech.wiiivideo.widget.NetworkThumbView
+    xmlns:wv="http://schemas.android.com/apk/res/com.dennytech.wiiivideo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginLeft="5dp"
+    android:scaleType="centerCrop"
+    wv:placeholderEmpty="@drawable/ic_pic_loading"
+    wv:placeholderError="@drawable/ic_pic_loading"
+    wv:placeholderLoading="@drawable/ic_pic_loading" />
