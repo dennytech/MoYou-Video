@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MoYou Video</string>
+    <string name="action_about">About</string>
+    <string name="action_feedback">Feedback</string>
+    <string name="msg_loading">Loading...</string>
+    <string name="about_content">最新最热门的游戏视频，尽在 WIIIVideo！</string>
+    <string name="about_check_update">Check Update</string>
+
+</resources>
