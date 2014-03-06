@@ -9,15 +9,18 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.keplerproject.luajava.LuaObject;
 import org.keplerproject.luajava.LuaState;
 import org.keplerproject.luajava.LuaStateFactory;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.dennytech.common.util.Log;
 import com.dennytech.wiiivideo.data.Video;
 import com.dennytech.wiiivideo.data.VideoList;
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
 
 public class SeachResultParseHelper implements ParseHelper {
 
@@ -89,34 +92,34 @@ public class SeachResultParseHelper implements ParseHelper {
 	}
 
 	@Override
-	public String parse(String source) {
-		// try {
-		// if (luaState == null) {
-		// String script = MobclickAgent.getConfigParams(context,
-		// "lua_search_result");
-		// if (!TextUtils.isEmpty(script)) {
-		// luaState = createFromString(context, script);
-		// Log.i(TAG, "create luaState from config");
-		//
-		// } else {
-		// luaState = createFromAssets(context, "search_result.lua");
-		// Log.i(TAG, "create luaState from assets");
-		// }
-		// }
-		//
-		// luaState.getField(LuaState.LUA_GLOBALSINDEX, "parse");
-		// luaState.pushString(source);
-		// luaState.call(1, 1);
-		//
-		// luaState.setField(LuaState.LUA_GLOBALSINDEX, "result");
-		// LuaObject lobj = luaState.getLuaObject("result");
-		// return lobj.getString();
-		//
-		// } catch (Exception e) {
-		// Log.e(TAG, "parse failed", e);
-		// } catch (Error e) {
-		// Log.e(TAG, "parse failed", e);
-		// }
+	public String parse(String scriptName, String source) {
+		try {
+			if (luaState == null) {
+				String script = MobclickAgent.getConfigParams(context,
+						scriptName);
+				if (!TextUtils.isEmpty(script)) {
+					luaState = createFromString(context, script);
+					Log.i(TAG, "create luaState from config");
+
+				} else {
+					luaState = createFromAssets(context, "search_result.lua");
+					Log.i(TAG, "create luaState from assets");
+				}
+			}
+
+			luaState.getField(LuaState.LUA_GLOBALSINDEX, "parse");
+			luaState.pushString(source);
+			luaState.call(1, 1);
+
+			luaState.setField(LuaState.LUA_GLOBALSINDEX, "result");
+			LuaObject lobj = luaState.getLuaObject("result");
+			return lobj.getString();
+
+		} catch (Exception e) {
+			Log.e(TAG, "parse failed", e);
+		} catch (Error e) {
+			Log.e(TAG, "parse failed", e);
+		}
 		return parseByDefault(source);
 	}
 
@@ -130,15 +133,17 @@ public class SeachResultParseHelper implements ParseHelper {
 			// recommend
 			Elements express = doc.getElementsByClass("sk-express");
 			if (express != null && express.size() > 0) {
-				Elements recombox = express.get(0).getElementsByClass("recom_box");
+				Elements recombox = express.get(0).getElementsByClass(
+						"recom_box");
 				Elements li = recombox.get(0).getElementsByTag("li");
-				for (int i =0; i < li.size() - 1; i++) {
+				for (int i = 0; i < li.size() - 1; i++) {
 					Element element = li.get(i);
 					Video video = new Video();
 					Element pic = element.getElementsByClass("pic").get(0);
 					video.title = pic.attr("title");
 					video.id = pic.attr("_log_vid");
-					video.thumb = pic.getElementsByTag("img").get(0).attr("src");
+					video.thumb = pic.getElementsByTag("img").get(0)
+							.attr("src");
 
 					Elements span = element.getElementsByTag("span");
 					video.length = span.get(0).text();

@@ -42,12 +42,15 @@ public class VideoListFragment extends WVFragment implements
 
 	protected String url;
 	protected String keyword;
+	protected String parser;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		url = getArguments().getString("url");
+		keyword = getArguments().getString("keyword");
+		parser = getArguments().getString("parser");
 		if (url == null) {
 			url = getActivity().getIntent().getData().getQueryParameter("url");
 		}
@@ -117,7 +120,7 @@ public class VideoListFragment extends WVFragment implements
 		protected VideoList doInBackground(String... params) {
 			SeachResultParseHelper helper = SeachResultParseHelper
 					.instance(getActivity());
-			String json = helper.parse(params[0]);
+			String json = helper.parse(parser, params[0]);
 			VideoList result = new Gson().fromJson(json,
 					new TypeToken<VideoList>() {
 					}.getType());

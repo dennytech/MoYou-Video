@@ -147,10 +147,11 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 		slidingMenuInitialiser.getSlidingMenu().toggle();
 		slidingMenuInitialiser.getSlidingMenuListFragment().getListAdapter()
 				.setSelecte(position);
-		
-		SlidingMenuListItem item = (SlidingMenuListItem) parent.getItemAtPosition(position);
+
+		SlidingMenuListItem item = (SlidingMenuListItem) parent
+				.getItemAtPosition(position);
 		sPagerAdapter.setKeyword(item.keyword);
-		
+
 		Fragment current = sPagerAdapter.getCurrentFragment();
 		if (current instanceof VideoListFragment) {
 			((VideoListFragment) current).setKeyword(item.keyword);
@@ -172,9 +173,9 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-		
+
 		private String keyword;
-		
+
 		public void setKeyword(String kw) {
 			this.keyword = kw;
 		}
@@ -196,15 +197,9 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 			}
 
 			Bundle args = new Bundle();
-			if (home != null && home.sorts != null) {
-				args.putString("url", home.sorts[position].url);
-			} else {
-				int order = position + 1;
-				args.putString(
-						"url",
-						"http://www.soku.com/search_video/q_%E9%AD%94%E5%85%BD%E4%BA%89%E9%9C%B83_orderby_"
-								+ order);
-			}
+			args.putString("url", home.sorts[position].url);
+			args.putString("keyword", home.tags[0].keyword);
+			args.putString("parser", home.sorts[position].parser);
 
 			fragment.setArguments(args);
 			return fragment;
@@ -212,7 +207,8 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 
 		@Override
 		public int getCount() {
-			return (home == null || home.sorts == null) ? 0 : home.sorts.length;
+			return (home == null || home.sorts == null || home.tags == null) ? 0
+					: home.sorts.length;
 		}
 
 		@Override
@@ -223,19 +219,19 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 			}
 			return null;
 		}
-		
+
 		private Fragment currentFragment;
 
-        public Fragment getCurrentFragment() {
-            return currentFragment;
-        }
-		
+		public Fragment getCurrentFragment() {
+			return currentFragment;
+		}
+
 		@Override
 		public void setPrimaryItem(ViewGroup container, int position,
 				Object object) {
 			if (getCurrentFragment() != object) {
-                currentFragment = ((Fragment) object);
-            }
+				currentFragment = ((Fragment) object);
+			}
 			if (object instanceof VideoListFragment) {
 				VideoListFragment fragment = ((VideoListFragment) object);
 				if (keyword != null) {

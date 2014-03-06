@@ -1,4 +1,4 @@
-local Version = "1.0.201403051543"
+local Version = "1.0.20140306.1139"
 
 local Log = luajava.bindClass("com.dennytech.common.util.Log")
 local Toast = luajava.bindClass("android.widget.Toast")
@@ -23,12 +23,13 @@ function parse(source)
 	local doc = Jsoup:parse(source)
 
 	-- recommend
-	if doc:hasClass("recom_box") then
-		local recombox = doc:getElementsByClass("recom_box"):get(0)
-		local li = recombox:getElementsByTag("li")
+	express = doc:getElementsByClass("sk-express")
+	if express and express:size() > 0 then
+		local recombox = express:get(0):getElementsByClass("recom_box")
+		local li = recombox:get(0):getElementsByTag("li")
 		local size = li:size()
 		for i=0,size do
-			local element = v:get(i)
+			local element = li:get(i)
 		    local video = luajava.newInstance("com.dennytech.wiiivideo.data.Video")
 			local pic = element:getElementsByClass("pic"):get(0)
 			video:setTitle(pic:attr("title"))
@@ -40,7 +41,7 @@ function parse(source)
 			video:setPlayTimes(span:get(1):text())
 			video:setPublishTime(span:get(2):text())
 			recommend:add(video)
-			if i == (size - 1) then
+			if i == (size - 2) then
         	    break
             end
 		end
