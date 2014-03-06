@@ -29,10 +29,6 @@ public class VideoGridFragment extends VideoListFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		pager = new AutoScrollViewPager(getActivity());
-		pager.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-				BDUtils.dip2px(getActivity(), 200)));
-		pager.setBackgroundResource(R.drawable.list_item_bg);
 	}
 
 	@Override
@@ -62,12 +58,6 @@ public class VideoGridFragment extends VideoListFragment {
 	}
 
 	@Override
-	public void reset() {
-		listView.removeHeaderView(pager);
-		super.reset();
-	}
-
-	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Object item = parent.getItemAtPosition(position);
@@ -83,12 +73,31 @@ public class VideoGridFragment extends VideoListFragment {
 
 	class MyAdapter extends Adapter {
 
+		List<Video> recommend;
+
+		final Object RECOMMEND = new Object();
+		final Object HEADER = new Object();
+
+		public void setRecommend(List<Video> recommend) {
+			this.recommend = recommend;
+		}
+
 		@Override
 		public int getCount() {
 			if (videoList.size() == 0) {
 				return 1;
 			}
+
+			if (recommend != null && recommend.size() > 0) {
+				return videoList.size() + 1;
+			}
 			return videoList.size();
+		}
+
+		@Override
+		public void reset() {
+			recommend = null;
+			super.reset();
 		}
 
 		@Override
@@ -98,22 +107,50 @@ public class VideoGridFragment extends VideoListFragment {
 			}
 
 			if (position == 0) {
-				Video[] head = { videoList.get(0), videoList.get(1) };
-				return head;
+				if (recommend != null && recommend.size() > 0) {
+					return RECOMMEND;
+
+				} else {
+					return HEADER;
+				}
+
+			} else if (position == 1 && recommend != null
+					&& recommend.size() > 0) {
+				return HEADER;
 			}
 
-			if (position < videoList.size() - 1) {
-				return videoList.get(position + 1);
+			if (position < videoList.size()) {
+				return videoList.get(position);
 			}
 
 			return errorMsg == null ? LOADING : ERROR;
 		}
 
 		@Override
-		protected View createItemViewWithData(int position, Object item,
-				View convertView) {
-			if (item instanceof Video[]) {
-				final Video[] head = (Video[]) item;
+		public int getViewTypeCount() {
+			return 5;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			Object item = getItem(position);
+			if (item == RECOMMEND) {
+				View view = convertView;
+				if (!(view instanceof AutoScrollViewPager)) {
+					view = new AutoScrollViewPager(getActivity());
+					view.setLayoutParams(new LayoutParams(
+							LayoutParams.MATCH_PARENT, BDUtils.dip2px(
+									getActivity(), 200)));
+					view.setBackgroundResource(R.drawable.bg_card_white);
+					((AutoScrollViewPager) view).setAdapter(new MyPagerAdapter(
+							recommend));
+					((AutoScrollViewPager) view).setInterval(2000);
+					((AutoScrollViewPager) view).startAutoScroll();
+				}
+				return view;
+
+			} else if (item == HEADER) {
+				final Video[] head = { videoList.get(0), videoList.get(1) };
 				View view = getLayoutInflater(getArguments()).inflate(
 						R.layout.layout_video_list_item_2, null);
 				VideoListItem item1 = (VideoListItem) view
@@ -131,7 +168,8 @@ public class VideoGridFragment extends VideoListFragment {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.put("__ct__", String.valueOf(0));
 						map.put("title", String.valueOf(head[0].title));
-						MobclickAgent.onEvent(getActivity(), "video_grid_item_click", map);
+						MobclickAgent.onEvent(getActivity(),
+								"video_grid_item_click", map);
 					}
 				});
 				item2.setOnClickListener(new OnClickListener() {
@@ -142,34 +180,22 @@ public class VideoGridFragment extends VideoListFragment {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.put("__ct__", String.valueOf(1));
 						map.put("title", String.valueOf(head[1].title));
-						MobclickAgent.onEvent(getActivity(), "video_grid_item_click", map);
+						MobclickAgent.onEvent(getActivity(),
+								"video_grid_item_click", map);
 					}
 				});
 				return view;
-
-			} else {
-				return super
-						.createItemViewWithData(position, item, convertView);
 			}
+			return super.getView(position, convertView, parent);
 		}
+
 	}
 
 	class MyTask extends Task {
 		@Override
 		protected void onPostExecute(VideoList result) {
+			((MyAdapter) adapter).setRecommend(result.recommend);
 			super.onPostExecute(result);
-			if (result.recommend != null && result.recommend.size() > 0) {
-				if (listView.getHeaderViewsCount() == 0) {
-					listView.addHeaderView(pager);
-				}
-				pager.setAdapter(new MyPagerAdapter(result.recommend));
-				pager.setInterval(2000);
-				pager.startAutoScroll();
-			} else {
-				if (adapter.page == 1) {
-					listView.removeHeaderView(pager);
-				}
-			}
 		}
 	}
 

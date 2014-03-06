@@ -8,6 +8,10 @@
         android:id="@+id/item1"
         layout="@layout/layout_video_grid_item" />
 
+    <View
+        android:layout_width="6dp"
+        android:layout_height="wrap_content" />
+
     <include
         android:id="@+id/item2"
         layout="@layout/layout_video_grid_item" />

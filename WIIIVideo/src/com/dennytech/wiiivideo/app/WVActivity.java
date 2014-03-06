@@ -3,11 +3,9 @@ package com.dennytech.wiiivideo.app;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import com.dennytech.common.app.CLActivity;
 import com.dennytech.wiiivideo.HomeActivity;
-import com.dennytech.wiiivideo.R;
 import com.umeng.analytics.MobclickAgent;
 
 public class WVActivity extends CLActivity {
@@ -15,8 +13,6 @@ public class WVActivity extends CLActivity {
 	@Override
 	public void setContentView(int layoutResID) {
 		super.setContentView(layoutResID);
-		FrameLayout rootFrame = (FrameLayout) findViewById(android.R.id.content);
-		rootFrame.setBackgroundResource(R.drawable.background_tabs);
 	}
 
 	@Override

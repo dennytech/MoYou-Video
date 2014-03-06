@@ -3,4 +3,8 @@
     android:id="@+id/list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:divider="@null" />
+    android:background="@color/bg_gray"
+    android:cacheColorHint="@color/bg_gray"
+    android:divider="@null"
+    android:dividerHeight="8dp"
+    android:padding="8dp" />
