@@ -32,7 +32,7 @@ public class SeachResultParseHelper implements ParseHelper {
 	private SeachResultParseHelper(Context ctx) {
 		context = ctx;
 	}
-	
+
 	@Override
 	public void close() {
 		if (luaState != null && !luaState.isClosed()) {
@@ -101,7 +101,7 @@ public class SeachResultParseHelper implements ParseHelper {
 	@Override
 	public String parse(String scriptName, String source) {
 		try {
-			if (luaState == null) {
+			if (luaState == null || luaState.isClosed()) {
 				String script = MobclickAgent.getConfigParams(context,
 						scriptName);
 				if (!TextUtils.isEmpty(script)) {

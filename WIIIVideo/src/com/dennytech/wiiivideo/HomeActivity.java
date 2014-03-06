@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import com.baruckis.SlidingMenuImplementation.SlidingMenuListItem;
 import com.baruckis.SlidingMenuImplementation.FromXML.ActivityBase;
@@ -133,6 +134,28 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getTitle().equals(getString(R.string.action_about))) {
+			startActivity(new Intent(Intent.ACTION_VIEW,
+					Uri.parse("wvideo://about")));
+			MobclickAgent.onEvent(this, "about");
+		} else if (item.getTitle().equals(getString(R.string.action_feedback))) {
+			try {
+				Intent intent = new Intent(Intent.ACTION_VIEW,
+						Uri.parse("mailto:dengjun86@gmail.com"));
+				intent.putExtra(Intent.EXTRA_SUBJECT, "关于'"
+						+ getString(R.string.app_name) + "'我有一些想说的");
+				startActivity(intent);
+			} catch (Exception e) {
+				Toast.makeText(this, "您需要首先安装并配置好您的邮箱客户端", Toast.LENGTH_SHORT)
+						.show();
+			}
+			MobclickAgent.onEvent(this, "feedback");
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 	/**
 	 * Menu Item Click
 	 * 
@@ -156,16 +179,11 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 		if (current instanceof VideoListFragment) {
 			((VideoListFragment) current).setKeyword(item.keyword);
 		}
-	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getTitle().equals(getString(R.string.action_about))) {
-			startActivity(new Intent(Intent.ACTION_VIEW,
-					Uri.parse("wvideo://about")));
-			MobclickAgent.onEvent(this, "about");
-		}
-		return super.onOptionsItemSelected(item);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("__ct__", String.valueOf(position));
+		map.put("name", String.valueOf(item.name));
+		MobclickAgent.onEvent(this, "home_menu_item", map);
 	}
 
 	/**

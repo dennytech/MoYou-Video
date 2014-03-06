@@ -128,6 +128,10 @@ public class VideoGridFragment extends VideoListFragment {
 					@Override
 					public void onClick(View v) {
 						playVideo(head[0]);
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put("__ct__", String.valueOf(0));
+						map.put("title", String.valueOf(head[0].title));
+						MobclickAgent.onEvent(getActivity(), "video_grid_item_click", map);
 					}
 				});
 				item2.setOnClickListener(new OnClickListener() {
@@ -135,6 +139,10 @@ public class VideoGridFragment extends VideoListFragment {
 					@Override
 					public void onClick(View v) {
 						playVideo(head[1]);
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put("__ct__", String.valueOf(1));
+						map.put("title", String.valueOf(head[1].title));
+						MobclickAgent.onEvent(getActivity(), "video_grid_item_click", map);
 					}
 				});
 				return view;
