@@ -205,7 +205,7 @@ public class VideoListFragment extends WVFragment implements
 				}, parent, convertView);
 
 			} else {
-				return createItemViewWithData(position, (Video) item, convertView);
+				return createItemViewWithData(position, item, convertView);
 			}
 		}
 
@@ -226,13 +226,14 @@ public class VideoListFragment extends WVFragment implements
 			page += 1;
 		}
 
-		protected View createItemViewWithData(int position, Video item, View convertView) {
+		protected View createItemViewWithData(int position, Object item,
+				View convertView) {
 			View view = convertView;
 			if (!(view instanceof VideoListItem)) {
 				view = getLayoutInflater(getArguments()).inflate(
 						R.layout.layout_video_list_item, null);
 			}
-			((VideoListItem) view).setData(item);
+			((VideoListItem) view).setData((Video) item);
 			return view;
 		}
 
@@ -271,7 +272,7 @@ public class VideoListFragment extends WVFragment implements
 	public void setKeyword(String kw) {
 		if (kw != null && !kw.equals(this.keyword)) {
 			this.keyword = kw;
-			adapter.reset();
+			reset();
 		}
 	}
 
