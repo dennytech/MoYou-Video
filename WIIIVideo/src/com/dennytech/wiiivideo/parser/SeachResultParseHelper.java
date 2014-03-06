@@ -142,21 +142,23 @@ public class SeachResultParseHelper implements ParseHelper {
 			if (express != null && express.size() > 0) {
 				Elements recombox = express.get(0).getElementsByClass(
 						"recom_box");
-				Elements li = recombox.get(0).getElementsByTag("li");
-				for (int i = 0; i < li.size() - 1; i++) {
-					Element element = li.get(i);
-					Video video = new Video();
-					Element pic = element.getElementsByClass("pic").get(0);
-					video.title = pic.attr("title");
-					video.id = pic.attr("_log_vid");
-					video.thumb = pic.getElementsByTag("img").get(0)
-							.attr("src");
+				if (recombox != null && recombox.size() > 0) {
+					Elements li = recombox.get(0).getElementsByTag("li");
+					for (int i = 0; i < li.size() - 1; i++) {
+						Element element = li.get(i);
+						Video video = new Video();
+						Element pic = element.getElementsByClass("pic").get(0);
+						video.title = pic.attr("title");
+						video.id = pic.attr("_log_vid");
+						video.thumb = pic.getElementsByTag("img").get(0)
+								.attr("src");
 
-					Elements span = element.getElementsByTag("span");
-					video.length = span.get(0).text();
-					video.playTimes = span.get(1).text();
-					video.publishTime = span.get(2).text();
-					recommend.add(video);
+						Elements span = element.getElementsByTag("span");
+						video.length = span.get(0).text();
+						video.playTimes = span.get(1).text();
+						video.publishTime = span.get(2).text();
+						recommend.add(video);
+					}
 				}
 			}
 

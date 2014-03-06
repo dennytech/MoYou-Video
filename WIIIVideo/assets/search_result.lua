@@ -1,4 +1,4 @@
-local Version = "1.0.20140306.1139"
+local Version = "1.0.20140306.1712"
 
 local Log = luajava.bindClass("com.dennytech.common.util.Log")
 local Toast = luajava.bindClass("android.widget.Toast")
@@ -26,25 +26,28 @@ function parse(source)
 	express = doc:getElementsByClass("sk-express")
 	if express and express:size() > 0 then
 		local recombox = express:get(0):getElementsByClass("recom_box")
-		local li = recombox:get(0):getElementsByTag("li")
-		local size = li:size()
-		for i=0,size do
-			local element = li:get(i)
-		    local video = luajava.newInstance("com.dennytech.wiiivideo.data.Video")
-			local pic = element:getElementsByClass("pic"):get(0)
-			video:setTitle(pic:attr("title"))
-			video:setId(pic:attr("_log_vid"))
-			video:setThumb(pic:getElementsByTag("img"):get(0):attr("src"))
-				
-			local span = element:getElementsByTag("span")
-			video:setLength(span:get(0):text())
-			video:setPlayTimes(span:get(1):text())
-			video:setPublishTime(span:get(2):text())
-			recommend:add(video)
-			if i == (size - 2) then
-        	    break
-            end
+		if recombox and recombox:size() > 0 then
+			local li = recombox:get(0):getElementsByTag("li")
+		    local size = li:size()
+		    for i=0,size do
+			    local element = li:get(i)
+		        local video = luajava.newInstance("com.dennytech.wiiivideo.data.Video")
+			    local pic = element:getElementsByClass("pic"):get(0)
+			    video:setTitle(pic:attr("title"))
+			    video:setId(pic:attr("_log_vid"))
+			    video:setThumb(pic:getElementsByTag("img"):get(0):attr("src"))
+			 	
+			    local span = element:getElementsByTag("span")
+			    video:setLength(span:get(0):text())
+			    video:setPlayTimes(span:get(1):text())
+			    video:setPublishTime(span:get(2):text())
+			    recommend:add(video)
+			    if i == (size - 2) then
+        	        break
+                end
+		    end
 		end
+		
 	end
 
 	-- list
