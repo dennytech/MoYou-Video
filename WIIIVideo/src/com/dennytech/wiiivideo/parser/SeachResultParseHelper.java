@@ -32,6 +32,13 @@ public class SeachResultParseHelper implements ParseHelper {
 	private SeachResultParseHelper(Context ctx) {
 		context = ctx;
 	}
+	
+	@Override
+	public void close() {
+		if (luaState != null && !luaState.isClosed()) {
+			luaState.close();
+		}
+	}
 
 	private static SeachResultParseHelper instance;
 

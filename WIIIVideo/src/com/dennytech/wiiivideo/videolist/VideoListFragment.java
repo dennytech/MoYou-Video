@@ -43,6 +43,8 @@ public class VideoListFragment extends WVFragment implements
 	protected String url;
 	protected String keyword;
 	protected String parser;
+	
+	protected SeachResultParseHelper helper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,9 @@ public class VideoListFragment extends WVFragment implements
 		if (task != null) {
 			task.cancel(true);
 		}
+		if (helper != null) {
+			helper.close();
+		}
 		super.onDestroy();
 	}
 
@@ -118,7 +123,7 @@ public class VideoListFragment extends WVFragment implements
 
 		@Override
 		protected VideoList doInBackground(String... params) {
-			SeachResultParseHelper helper = SeachResultParseHelper
+			helper = SeachResultParseHelper
 					.instance(getActivity());
 			String json = helper.parse(parser, params[0]);
 			VideoList result = new Gson().fromJson(json,
