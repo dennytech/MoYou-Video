@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="HandlerLeak">
+        <ignore path="src/com/dennytech/wiiivideo/player/PlayerActivity.java" />
+    </issue>
+    <issue id="InlinedApi">
+        <ignore path="src/com/dennytech/wiiivideo/player/PlayerActivity.java" />
+    </issue>
     <issue id="NewApi" severity="ignore">
         <ignore path="src/com/baruckis/SlidingMenuImplementation/FromXML/ActivityBase.java" />
+        <ignore path="subproject/vitamio/src/io/vov/vitamio/widget/VideoView.java" />
     </issue>
 </lint>
