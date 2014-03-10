@@ -23,7 +23,7 @@ import com.dennytech.common.service.dataservice.mapi.MApiRequestHandler;
 import com.dennytech.common.service.dataservice.mapi.MApiResponse;
 import com.dennytech.common.service.dataservice.mapi.impl.BasicMApiRequest;
 import com.dennytech.wiiivideo.R;
-import com.dennytech.wiiivideo.app.WVFragment;
+import com.dennytech.wiiivideo.app.MYFragment;
 import com.dennytech.wiiivideo.data.Video;
 import com.dennytech.wiiivideo.data.VideoList;
 import com.dennytech.wiiivideo.parser.SeachResultParseHelper;
@@ -32,7 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
 
-public class VideoListFragment extends WVFragment implements
+public class VideoListFragment extends MYFragment implements
 		OnItemClickListener, MApiRequestHandler {
 
 	protected MApiRequest request;

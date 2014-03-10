@@ -1,11 +1,12 @@
 package com.baruckis.SlidingMenuImplementation.FromXML;
 
 import android.app.ActionBar;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
-import com.dennytech.wiiivideo.app.WVActivity;
+import com.dennytech.wiiivideo.app.MYActivity;
 
 /**
  * @author Andrius Baruckis http://www.baruckis.com
@@ -16,18 +17,21 @@ import com.dennytech.wiiivideo.app.WVActivity;
  *         press behavior.
  * 
  */
-public class ActivityBase extends WVActivity {
+public class ActivityBase extends MYActivity {
 	protected SlidingMenuInitialiser slidingMenuInitialiser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		if (enableHomeIconActionBack() || enableHomeIconActionSlidingMenu()) {
-			ActionBar actionBar = getActionBar();
-			if (actionBar != null)
-				actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		if (Build.VERSION.SDK_INT > 11) {
+			if (enableHomeIconActionBack() || enableHomeIconActionSlidingMenu()) {
+				ActionBar actionBar = getActionBar();
+				if (actionBar != null)
+					actionBar.setDisplayHomeAsUpEnabled(true);
+			}
 		}
+
 	}
 
 	@Override

@@ -9,14 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dennytech.wiiivideo.R;
-import com.dennytech.wiiivideo.app.WVActivity;
+import com.dennytech.wiiivideo.app.MYActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
-public class AboutActivity extends WVActivity implements OnClickListener {
+public class AboutActivity extends MYActivity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle arg0) {

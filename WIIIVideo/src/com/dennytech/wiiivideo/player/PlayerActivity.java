@@ -9,9 +9,9 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.dennytech.wiiivideo.R;
-import com.dennytech.wiiivideo.app.WVActivity;
+import com.dennytech.wiiivideo.app.MYActivity;
 
-public class PlayerActivity extends WVActivity {
+public class PlayerActivity extends MYActivity {
 
 	private VideoView mVideoView;
 

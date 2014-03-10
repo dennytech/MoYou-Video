@@ -3,6 +3,7 @@ package com.dennytech.wiiivideo.app;
 import android.content.Context;
 
 import com.dennytech.common.app.CLApplication;
+import com.dennytech.common.app.Environment;
 import com.dennytech.common.app.ServiceManager;
 import com.dennytech.common.service.configservice.impl.DefaultConfigService;
 import com.dennytech.common.service.dataservice.mapi.CacheType;
@@ -29,10 +30,15 @@ public class MyServiceManager extends ServiceManager {
 
 			@Override
 			protected MApiRequest createRequest() {
-				return BasicMApiRequest
-						.mapiGet(
-								"https://raw.github.com/donotwarry/WIII-Video/master/WIIIVideo/assets/config.json",
-								CacheType.DISABLED, null);
+				int versionCode = Environment.getVersionCode();
+				String url;
+				if (versionCode < 0) {
+					url = "https://raw.github.com/donotwarry/WIII-Video/master/WIIIVideo/assets/config.json";
+				} else {
+					url = "https://raw.github.com/donotwarry/WIII-Video/master/WIIIVideo/config/"
+							+ versionCode + "/config.json";
+				}
+				return BasicMApiRequest.mapiGet(url, CacheType.DISABLED, null);
 			}
 		};
 	}

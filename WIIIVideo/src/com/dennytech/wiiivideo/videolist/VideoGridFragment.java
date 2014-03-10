@@ -77,9 +77,13 @@ public class VideoGridFragment extends VideoListFragment {
 
 		final Object RECOMMEND = new Object();
 		final Object HEADER = new Object();
+		boolean hasRecommend;
 
 		public void setRecommend(List<Video> recommend) {
 			this.recommend = recommend;
+			if (recommend != null && recommend.size() > 0) {
+				this.hasRecommend = true;
+			}
 		}
 
 		@Override
@@ -88,7 +92,7 @@ public class VideoGridFragment extends VideoListFragment {
 				return 1;
 			}
 
-			if (recommend != null && recommend.size() > 0) {
+			if (hasRecommend) {
 				return videoList.size() + 1;
 			}
 			return videoList.size();
@@ -97,6 +101,7 @@ public class VideoGridFragment extends VideoListFragment {
 		@Override
 		public void reset() {
 			recommend = null;
+			hasRecommend = false;
 			super.reset();
 		}
 
@@ -107,20 +112,19 @@ public class VideoGridFragment extends VideoListFragment {
 			}
 
 			if (position == 0) {
-				if (recommend != null && recommend.size() > 0) {
+				if (hasRecommend) {
 					return RECOMMEND;
 
 				} else {
 					return HEADER;
 				}
 
-			} else if (position == 1 && recommend != null
-					&& recommend.size() > 0) {
+			} else if (position == 1 && hasRecommend) {
 				return HEADER;
 			}
 
-			if (position < videoList.size()) {
-				return videoList.get(position);
+			if (position < videoList.size() - 1) {
+				return videoList.get(position + 1);
 			}
 
 			return errorMsg == null ? LOADING : ERROR;

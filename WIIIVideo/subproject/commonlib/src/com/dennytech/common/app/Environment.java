@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ public class Environment {
 	private static String channelID;
 	private static String deviceType;
 	private static String userAgent;
+	private static int versionCode;
 
 	/**
 	 * 是否为调试状态
@@ -106,6 +108,22 @@ public class Environment {
 		if (app == null)
 			return "";
 		return app.sessionId();
+	}
+
+	public static int getVersionCode() {
+		if (versionCode == 0) {
+			try {
+				PackageInfo pi = CLApplication
+						.instance()
+						.getPackageManager()
+						.getPackageInfo(
+								CLApplication.instance().getPackageName(), 0);
+				versionCode = pi.versionCode;
+			} catch (NameNotFoundException e) {
+				versionCode = -1;
+			}
+		}
+		return versionCode;
 	}
 
 }
