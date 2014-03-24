@@ -26,6 +26,7 @@ import com.baruckis.SlidingMenuImplementation.FromXML.SlidingMenuListFragmentCon
 import com.dennytech.common.service.configservice.ConfigChangeListener;
 import com.dennytech.wiiivideo.data.Home;
 import com.dennytech.wiiivideo.data.HomeTag;
+import com.dennytech.wiiivideo.playlist.PlaylistFragment;
 import com.dennytech.wiiivideo.videolist.VideoGridFragment;
 import com.dennytech.wiiivideo.videolist.VideoListFragment;
 import com.dennytech.wiiivideo.widget.PagerSlidingTabStrip;
@@ -209,7 +210,11 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 			// below) with the page number as its lone argument.
 			Fragment fragment;
 			if (position == 0) {
+				fragment = new PlaylistFragment();
+				
+			} else if (position == 1) {
 				fragment = new VideoGridFragment();
+				
 			} else {
 				fragment = new VideoListFragment();
 			}

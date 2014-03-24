@@ -24,7 +24,7 @@ import com.umeng.analytics.MobclickAgent;
 
 public class SeachResultParseHelper implements ParseHelper {
 
-	private static final String TAG = "lua_parser";
+	private static final String TAG = "seach_result_parser";
 
 	protected LuaState luaState;
 	private Context context;
