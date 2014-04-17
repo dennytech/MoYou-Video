@@ -5,7 +5,7 @@ public interface ParseHelper {
 	
 	String parse(String scriptName, String source);
 	
-	String parseByDefault(String source);
+	Object parseByDefault(String source);
 	
 	void close();
 

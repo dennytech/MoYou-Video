@@ -1,0 +1,1 @@
+package com.dennytech.wiiivideo.data;import java.util.List;public class PlaylistList {		public List<Playlist> list;	public List<Playlist> getList() {		return list;	}	public void setList(List<Playlist> list) {		this.list = list;	}	}

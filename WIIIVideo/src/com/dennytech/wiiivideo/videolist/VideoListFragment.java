@@ -24,16 +24,17 @@ import com.dennytech.common.service.dataservice.mapi.MApiResponse;
 import com.dennytech.common.service.dataservice.mapi.impl.BasicMApiRequest;
 import com.dennytech.wiiivideo.R;
 import com.dennytech.wiiivideo.app.MYFragment;
+import com.dennytech.wiiivideo.app.SearchPage;
 import com.dennytech.wiiivideo.data.Video;
 import com.dennytech.wiiivideo.data.VideoList;
-import com.dennytech.wiiivideo.parser.SeachResultParseHelper;
+import com.dennytech.wiiivideo.parser.SearchResultParseHelper;
 import com.dennytech.wiiivideo.videolist.view.VideoListItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
 
 public class VideoListFragment extends MYFragment implements
-		OnItemClickListener, MApiRequestHandler {
+		OnItemClickListener, MApiRequestHandler, SearchPage {
 
 	protected MApiRequest request;
 	protected Task task;
@@ -44,7 +45,7 @@ public class VideoListFragment extends MYFragment implements
 	protected String keyword;
 	protected String parser;
 	
-	protected SeachResultParseHelper helper;
+	protected SearchResultParseHelper helper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class VideoListFragment extends MYFragment implements
 
 		@Override
 		protected VideoList doInBackground(String... params) {
-			helper = SeachResultParseHelper
+			helper = SearchResultParseHelper
 					.instance(getActivity());
 			String json = helper.parse(parser, params[0]);
 			VideoList result = new Gson().fromJson(json,
@@ -277,6 +278,7 @@ public class VideoListFragment extends MYFragment implements
 		adapter.reset();
 	}
 
+	@Override
 	public void setKeyword(String kw) {
 		if (kw != null && !kw.equals(this.keyword)) {
 			this.keyword = kw;

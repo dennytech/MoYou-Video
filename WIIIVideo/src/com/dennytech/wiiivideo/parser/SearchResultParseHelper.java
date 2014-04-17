@@ -22,14 +22,14 @@ import com.dennytech.wiiivideo.data.VideoList;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 
-public class SeachResultParseHelper implements ParseHelper {
+public class SearchResultParseHelper implements ParseHelper {
 
 	private static final String TAG = "seach_result_parser";
 
 	protected LuaState luaState;
 	private Context context;
 
-	private SeachResultParseHelper(Context ctx) {
+	private SearchResultParseHelper(Context ctx) {
 		context = ctx;
 	}
 
@@ -40,11 +40,11 @@ public class SeachResultParseHelper implements ParseHelper {
 		}
 	}
 
-	private static SeachResultParseHelper instance;
+	private static SearchResultParseHelper instance;
 
-	public synchronized static SeachResultParseHelper instance(Context ctx) {
+	public synchronized static SearchResultParseHelper instance(Context ctx) {
 		if (instance == null) {
-			instance = new SeachResultParseHelper(ctx);
+			instance = new SearchResultParseHelper(ctx);
 		}
 		return instance;
 	}

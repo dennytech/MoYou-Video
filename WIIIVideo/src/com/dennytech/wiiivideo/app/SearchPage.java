@@ -1,0 +1,1 @@
+package com.dennytech.wiiivideo.app;public interface SearchPage {		void setKeyword(String keyword);}

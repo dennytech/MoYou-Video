@@ -24,6 +24,7 @@ import com.baruckis.SlidingMenuImplementation.FromXML.ActivityBase;
 import com.baruckis.SlidingMenuImplementation.FromXML.SlidingMenuInitialiser;
 import com.baruckis.SlidingMenuImplementation.FromXML.SlidingMenuListFragmentConcrete;
 import com.dennytech.common.service.configservice.ConfigChangeListener;
+import com.dennytech.wiiivideo.app.SearchPage;
 import com.dennytech.wiiivideo.data.Home;
 import com.dennytech.wiiivideo.data.HomeTag;
 import com.dennytech.wiiivideo.playlist.PlaylistFragment;
@@ -177,8 +178,8 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 		sPagerAdapter.setKeyword(item.keyword);
 
 		Fragment current = sPagerAdapter.getCurrentFragment();
-		if (current instanceof VideoListFragment) {
-			((VideoListFragment) current).setKeyword(item.keyword);
+		if (current instanceof SearchPage) {
+			((SearchPage) current).setKeyword(item.keyword);
 		}
 
 		HashMap<String, String> map = new HashMap<String, String>();
