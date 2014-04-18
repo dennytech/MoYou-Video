@@ -3,7 +3,9 @@ package com.dennytech.wiiivideo;
 import java.util.HashMap;
 import java.util.Locale;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -68,6 +70,17 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 		MobclickAgent.updateOnlineConfig(this);
 		// MobclickAgent.setOnlineConfigureListener(this);
 		UmengUpdateAgent.update(this);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+		SharedPreferences sp = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+		if (!sp.getBoolean("showSlidingMenu", false)) {
+			slidingMenuInitialiser.getSlidingMenu().showMenu();
+			sp.edit().putBoolean("showSlidingMenu", true).commit();
+		}
 	}
 
 	private void initView() {

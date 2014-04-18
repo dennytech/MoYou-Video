@@ -1,6 +1,7 @@
 package com.dennytech.wiiivideo.videolist.view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,7 +36,9 @@ public class VideoListItem extends LinearLayout {
 	public void setData(Video video) {
 		thumbView.setImage(video.thumb);
 		titleView.setText(video.title);
-		pubView.setText(video.publishTime + "发布");
+		if (!TextUtils.isEmpty(video.publishTime)) {
+			pubView.setText(video.publishTime + "发布");
+		}
 		playView.setText(video.playTimes + "次播放");
 	}
 
