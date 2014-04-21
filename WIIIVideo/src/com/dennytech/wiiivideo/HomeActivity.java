@@ -72,17 +72,6 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 		UmengUpdateAgent.update(this);
 	}
 	
-	@Override
-	public void onResume() {
-		super.onResume();
-		
-		SharedPreferences sp = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
-		if (!sp.getBoolean("showSlidingMenu", false)) {
-			slidingMenuInitialiser.getSlidingMenu().showMenu();
-			sp.edit().putBoolean("showSlidingMenu", true).commit();
-		}
-	}
-
 	private void initView() {
 		root.setVisibility(View.VISIBLE);
 
@@ -140,6 +129,12 @@ public class HomeActivity extends ActivityBase implements ConfigChangeListener,
 		}
 
 		slidingMenuInitialiser.getSlidingMenu().setTouchmodeMarginThreshold(10);
+		
+		SharedPreferences sp = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+		if (!sp.getBoolean("showSlidingMenu", false)) {
+			slidingMenuInitialiser.getSlidingMenu().showMenu();
+			sp.edit().putBoolean("showSlidingMenu", true).commit();
+		}
 	}
 
 	@Override
