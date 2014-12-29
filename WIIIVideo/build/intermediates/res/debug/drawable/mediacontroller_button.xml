@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+     <item android:drawable="@color/mediacontroller_bg_pressed" android:state_focused="true"/>
+    <item android:drawable="@color/mediacontroller_bg_pressed" android:state_pressed="true"/>
+    <item android:drawable="@color/transparent" android:state_enabled="false"/>
+    <item android:drawable="@color/transparent"/>
+
+
+</selector><!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/vitamio/res/drawable/mediacontroller_button.xml --><!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/vitamio/unspecified/res/drawable/mediacontroller_button.xml -->

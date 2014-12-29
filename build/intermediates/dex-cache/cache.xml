@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/commonlib/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="9bc6636010a4ab9b0c7efa15717ebd19371f9b40">
+        <dex dex="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/classes-de18d47e56530b133c713c5592ca19f57b9b32a8.jar" />
+    </item>
+    <item
+        jar="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/commonlib/unspecified/libs/android-support-v4.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="4a6be13368bb64c5a0b0460632d228a1a915f58f">
+        <dex dex="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/android-support-v4-27559fc5822b4f41656d2569877ace61adcd62d4.jar" />
+    </item>
+    <item
+        jar="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/commonlib/unspecified/libs/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/gson-2.3.1-f9848617e80967e7323442cd0c2e29f575dc58f0.jar" />
+    </item>
+    <item
+        jar="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/vitamio/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="161fb7e37e2bf421d217721da69b68eb63023d59">
+        <dex dex="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/classes-d6a6d433366c3bcf2373037d5e13bd6a1692caae.jar" />
+    </item>
+    <item
+        jar="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/libs/jsoup-1.7.3.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="ab1f22cadc2f8b514e55ba368f5128056fe304da">
+        <dex dex="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/jsoup-1.7.3-3824ff006f5a3b53c2fd81d932fdf94edfa9c3e9.jar" />
+    </item>
+    <item
+        jar="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/libs/umeng_sdk.jar"
+        jumboMode="false"
+        revision="21.1.0"
+        sha1="7cf89a75bd6af2056d4af4e6122cc3ccf6602878">
+        <dex dex="/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/umeng_sdk-e9c0f24053214161e3faa0b63c6e65c9d63281af.jar" />
+    </item>
+
+</items>

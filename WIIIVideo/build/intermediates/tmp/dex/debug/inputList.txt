@@ -1,0 +1,7 @@
+/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/classes/debug
+/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/classes-de18d47e56530b133c713c5592ca19f57b9b32a8.jar
+/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/classes-d6a6d433366c3bcf2373037d5e13bd6a1692caae.jar
+/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/gson-2.3.1-f9848617e80967e7323442cd0c2e29f575dc58f0.jar
+/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/umeng_sdk-e9c0f24053214161e3faa0b63c6e65c9d63281af.jar
+/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/jsoup-1.7.3-3824ff006f5a3b53c2fd81d932fdf94edfa9c3e9.jar
+/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/pre-dexed/debug/android-support-v4-27559fc5822b4f41656d2569877ace61adcd62d4.jar

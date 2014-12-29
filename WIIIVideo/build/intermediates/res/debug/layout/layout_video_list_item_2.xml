@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <include
+        android:id="@+id/item1"
+        layout="@layout/layout_video_grid_item" />
+
+    <View
+        android:layout_width="6dp"
+        android:layout_height="wrap_content" />
+
+    <include
+        android:id="@+id/item2"
+        layout="@layout/layout_video_grid_item" />
+
+</LinearLayout><!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/layout/layout_video_list_item_2.xml -->

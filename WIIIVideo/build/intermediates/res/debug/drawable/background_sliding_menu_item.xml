@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_shortAnimTime">
+
+    <item android:drawable="@color/sliding_menu_item_back_d" android:state_pressed="true"/>
+    <item android:drawable="@color/sliding_menu_item_back_d" android:state_focused="true"/>
+    <item android:drawable="@color/sliding_menu_item_back_d" android:state_selected="true"/>
+    <item android:drawable="@android:color/transparent"/>
+
+</selector><!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/drawable/background_sliding_menu_item.xml -->

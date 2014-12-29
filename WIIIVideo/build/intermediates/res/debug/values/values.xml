@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="background_gray">#66000000</color>
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="bg_blue">#0eaffb</color>
+    <color name="bg_gray">#e5e5e5</color>
+    <color name="bg_light_blue">#880eaffb</color>
+    <color name="bg_light_gray">#e3e3e3</color>
+    <color name="loading_back">#0082be</color>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/vitamio/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="mediacontroller_bg">#99000000</color>
+    <color name="mediacontroller_bg_pressed">#ff53c1bd</color>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="sliding_menu_item_back_d">#8B3A3A</color>
+    <color name="text_deep_gray">#99000000</color>
+    <color name="text_gray">#ababab</color>
+    <color name="text_white_normal">#a6ffffff</color>
+    <color name="text_yellow">#ff8a00</color>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/vitamio/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="transparent">#00000000</color>
+    <declare-styleable name="NetworkImageView"><attr format="boolean" name="filterBitmap"/><attr format="boolean" name="requireBeforeAttach"/><attr format="reference" name="placeholderEmpty"/><attr format="reference" name="placeholderLoading"/><attr format="reference" name="placeholderError"/></declare-styleable>
+    <declare-styleable name="PagerSlidingTabStrip"><attr format="color" name="pstsIndicatorColor"/><attr format="color" name="pstsUnderlineColor"/><attr format="color" name="pstsDividerColor"/><attr format="dimension" name="pstsIndicatorHeight"/><attr format="dimension" name="pstsUnderlineHeight"/><attr format="dimension" name="pstsDividerPadding"/><attr format="dimension" name="pstsTabPaddingLeftRight"/><attr format="dimension" name="pstsScrollOffset"/><attr format="reference" name="pstsTabBackground"/><attr format="boolean" name="pstsShouldExpand"/><attr format="boolean" name="pstsTextAllCaps"/></declare-styleable>
+    <declare-styleable name="SlidingMenu"><attr name="mode"><enum name="left" value="0"/><enum name="right" value="1"/></attr><attr format="reference" name="viewAbove"/><attr format="reference" name="viewBehind"/><attr format="dimension" name="behindOffset"/><attr format="dimension" name="behindWidth"/><attr format="float" name="behindScrollScale"/><attr name="touchModeAbove"><enum name="margin" value="0"/><enum name="fullscreen" value="1"/></attr><attr name="touchModeBehind"><enum name="margin" value="0"/><enum name="fullscreen" value="1"/></attr><attr format="reference" name="shadowDrawable"/><attr format="dimension" name="shadowWidth"/><attr format="boolean" name="fadeEnabled"/><attr format="float" name="fadeDegree"/><attr format="boolean" name="selectorEnabled"/><attr format="reference" name="selectorDrawable"/></declare-styleable>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/dimensions.xml -->
+    <eat-comment/>
+    <dimen name="sliding_menu_list_padding">10dp</dimen>
+    <dimen name="sliding_menu_offset">58dp</dimen>
+    <dimen name="sliding_menu_shadow_width">15dp</dimen>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="selected_view" type="id"/>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/umeng_update_string.xml -->
+    <eat-comment/>
+    <string name="UMAppUpdate">App updating</string>
+    <string name="UMBreak_Network">Please make sure you are connected to internet,update failed</string>
+    <string name="UMDialog_InstallAPK">The lastest version has been downloaded, install now ?</string>
+    <string name="UMGprsCondition">(Warning: Not WIFI Condition)</string>
+    <string name="UMIgnore">Ingore this</string>
+    <string name="UMNewVersion">Latest version: </string>
+    <string name="UMNotNow">Not now</string>
+    <string name="UMTargetSize">Target size: </string>
+    <string name="UMToast_IsUpdating">Updating....</string>
+    <string name="UMUpdateCheck">2.4.0.20131230</string>
+    <string name="UMUpdateContent">Update Content</string>
+    <string name="UMUpdateNow">Update now</string>
+    <string name="UMUpdateSize">Update size: </string>
+    <string name="UMUpdateTitle">New version found</string>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/vitamio/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="VideoView_error_button">OK</string>
+    <string name="VideoView_error_text_invalid_progressive_playback">Sorry, this video is not valid for streaming to
+        this device.
+    </string>
+    <string name="VideoView_error_text_unknown">Sorry, this video cannot be played.</string>
+    <string name="VideoView_error_title">Cannot play video</string>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="about_check_update">检查更新</string>
+    <string name="about_content">最新最热门的游戏视频，尽在 WIIIVideo！</string>
+    <string name="action_about">关于</string>
+    <string name="action_feedback">意见反馈</string>
+    <string name="app_name">魔游视频</string>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/vitamio/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="mediacontroller_play_pause">Play/Pause</string>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="msg_loading">加载中...</string>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/vitamio/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="permission_group_tools_description">Access Vitamio package and resources.</string>
+    <string name="permission_group_tools_label">Vitamio tools</string>
+    <string name="permission_receive_messages_description">Receive all broadcasts from Vitamio service.</string>
+    <string name="permission_receive_messages_label">Receive Vitamio messages</string>
+    <string name="permission_write_providers_description">Delete, update or create new items in Vitamio providers.
+    </string>
+    <string name="permission_write_providers_label">Write Vitamio providers</string>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/umeng_common_strings.xml -->
+    <eat-comment/>
+    <string name="umeng_common_action_cancel">Cancel</string>
+    <string name="umeng_common_action_continue">Continue</string>
+    <string name="umeng_common_action_info_exist">The app is already in downloading list.</string>
+    <string name="umeng_common_action_pause">Pause</string>
+    <string name="umeng_common_download_failed">Download Failed! </string>
+    <string name="umeng_common_download_finish">Download finished,click to install it.</string>
+    <string name="umeng_common_download_notification_prefix">Downloading: </string>
+    <string name="umeng_common_icon">icon</string>
+    <string name="umeng_common_info_interrupt">dowload interrupted.</string>
+    <string name="umeng_common_network_break_alert">Please make sure you are connected to internet, download failed</string>
+    <string name="umeng_common_patch_finish">Patch finished,click to install it.</string>
+    <string name="umeng_common_start_download_notification">Download start.</string>
+    <string name="umeng_common_start_patch_notification">Patch start.</string>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/umeng_update_string.xml -->
+    <eat-comment/>
+    <string name="update_checking">正在检查更新...</string>
+    <string name="update_no">当前是最新版本，无须更新!</string>
+    <string name="update_no_wifi">没有wifi连接， 只在wifi下更新</string>
+    <string name="update_timeout">超时</string>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/vitamio/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="vitamio_init_decoders">Initializing decoders…</string>
+    <string name="vitamio_library_app_name">VitamioLibrary</string>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/vitamio/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="MediaController_SeekBar" parent="android:Widget.SeekBar">
+        <item name="android:progressDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
+        <item name="android:indeterminateDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
+        <item name="android:minHeight">13dip</item>
+        <item name="android:maxHeight">13dip</item>
+        <item name="android:thumb">@drawable/scrubber_control_selector_holo</item>
+        <item name="android:thumbOffset">16dip</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+    </style>
+    <style name="MediaController_Text">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

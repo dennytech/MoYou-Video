@@ -1,0 +1,2 @@
+int drawable ic_launcher 0x7f020000
+int layout list_item_loading 0x7f030000

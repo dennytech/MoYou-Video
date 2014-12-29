@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/values-en/strings.xml -->
+    <eat-comment/>
+    <string name="about_check_update">Check Update</string>
+    <string name="about_content">最新最热门的游戏视频，尽在 WIIIVideo！</string>
+    <string name="action_about">About</string>
+    <string name="action_feedback">Feedback</string>
+    <string name="app_name">MoYou Video</string>
+    <string name="msg_loading">Loading...</string>
+</resources>

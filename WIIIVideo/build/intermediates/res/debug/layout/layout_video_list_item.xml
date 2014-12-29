@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dennytech.wiiivideo.videolist.view.VideoListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wv="http://schemas.android.com/apk/res/com.dennytech.wiiivideo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card_white"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="6dp" >
+
+    <com.dennytech.wiiivideo.widget.NetworkThumbView
+        android:id="@+id/thumb"
+        android:layout_width="128dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        wv:placeholderEmpty="@drawable/ic_pic_loading"
+        wv:placeholderError="@drawable/ic_pic_loading"
+        wv:placeholderLoading="@drawable/ic_pic_loading" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textColor="@color/text_deep_gray"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom" >
+
+            <TextView
+                android:id="@+id/publish"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="@color/text_gray"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/text_gray"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</com.dennytech.wiiivideo.videolist.view.VideoListItem><!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/layout/layout_video_list_item.xml -->

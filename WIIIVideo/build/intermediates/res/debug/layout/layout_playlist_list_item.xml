@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dennytech.wiiivideo.playlist.view.PlaylistListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wv="http://schemas.android.com/apk/res/com.dennytech.wiiivideo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card_white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <com.dennytech.wiiivideo.widget.NetworkThumbView
+                android:id="@+id/author_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                wv:placeholderEmpty="@drawable/ic_pic_loading"
+                wv:placeholderError="@drawable/ic_pic_loading"
+                wv:placeholderLoading="@drawable/ic_pic_loading" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/author_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="xiaoy解说"
+                    android:textColor="@color/text_deep_gray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/update_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="10dp"
+                    android:text="3个月前更新"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/play_times"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="10dp"
+                    android:text="总播放：120，122，224"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="视频数：120"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="bbbbbb当啊会计师都开始拉动"
+        android:textColor="@color/text_deep_gray"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/bg_light_gray" />
+
+    <LinearLayout
+        android:id="@+id/video_item0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_tab"
+        android:gravity="center_vertical" >
+
+        <com.dennytech.wiiivideo.widget.NetworkThumbView
+            android:id="@+id/video_thumb0"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            wv:placeholderEmpty="@drawable/ic_pic_loading"
+            wv:placeholderError="@drawable/ic_pic_loading"
+            wv:placeholderLoading="@drawable/ic_pic_loading" />
+
+        <TextView
+            android:id="@+id/video_title0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="aaaaaaaaaaaaaa"
+            android:textColor="@color/text_deep_gray"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/bg_light_gray" />
+
+    <LinearLayout
+        android:id="@+id/video_item1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_tab"
+        android:gravity="center_vertical" >
+
+        <com.dennytech.wiiivideo.widget.NetworkThumbView
+            android:id="@+id/video_thumb1"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            wv:placeholderEmpty="@drawable/ic_pic_loading"
+            wv:placeholderError="@drawable/ic_pic_loading"
+            wv:placeholderLoading="@drawable/ic_pic_loading" />
+
+        <TextView
+            android:id="@+id/video_title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="aaaaaaaaaaaaaa"
+            android:textColor="@color/text_deep_gray"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/bg_light_gray" />
+
+    <TextView
+        android:id="@+id/more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_tab"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="点击查看更多"
+        android:textColor="@color/text_deep_gray"
+        android:textSize="14sp" />
+
+</com.dennytech.wiiivideo.playlist.view.PlaylistListItem><!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/layout/layout_playlist_list_item.xml -->

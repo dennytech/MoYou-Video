@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="debug"><source path="/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/build/intermediates/bundles/debug/res"><file name="ic_launcher" path="/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/build/intermediates/bundles/debug/res/drawable-hdpi-v4/ic_launcher.png" qualifiers="hdpi-v4" type="drawable"/><file name="ic_launcher" path="/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/build/intermediates/bundles/debug/res/drawable-mdpi-v4/ic_launcher.png" qualifiers="mdpi-v4" type="drawable"/><file name="ic_launcher" path="/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/ic_launcher.png" qualifiers="xhdpi-v4" type="drawable"/><file name="list_item_loading" path="/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/build/intermediates/bundles/debug/res/layout/list_item_loading.xml" qualifiers="" type="layout"/><file path="/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/build/intermediates/bundles/debug/res/values/values.xml" qualifiers=""><style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style><string name="app_name">BaiduTuanLib</string><style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style></file></source></dataSet><dataSet config="main"><source path="/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/src/androidTest/res"/><source path="/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/build/generated/res/rs/test/debug"/><source path="/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/build/generated/res/generated/test/debug"/></dataSet><mergedItems/></merger>

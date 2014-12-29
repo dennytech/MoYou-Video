@@ -1,0 +1,3 @@
+include ':'
+include ':subproject:commonlib'
+include ':subproject:vitamio'

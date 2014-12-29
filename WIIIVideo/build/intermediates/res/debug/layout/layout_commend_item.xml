@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dennytech.wiiivideo.videolist.view.VideoCommendItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wv="http://schemas.android.com/apk/res/com.dennytech.wiiivideo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dp"
+    android:orientation="vertical" >
+
+    <com.dennytech.wiiivideo.widget.NetworkThumbView
+        android:id="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        wv:placeholderEmpty="@drawable/ic_pic_loading"
+        wv:placeholderError="@drawable/ic_pic_loading"
+        wv:placeholderLoading="@drawable/ic_pic_loading" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/background_gray"
+        android:ellipsize="end"
+        android:padding="2dp"
+        android:singleLine="true"
+        android:text="ssss"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+</com.dennytech.wiiivideo.videolist.view.VideoCommendItem><!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/res/layout/layout_commend_item.xml -->

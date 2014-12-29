@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_gravity="center" />
+
+</LinearLayout><!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/commonlib/res/layout/list_item_loading.xml --><!-- From: file:/Volumes/Dev/workspaces/github/MoYou-Video/WIIIVideo/build/intermediates/exploded-aar/MoYou-Video/commonlib/unspecified/res/layout/list_item_loading.xml -->
